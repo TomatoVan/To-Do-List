@@ -1,20 +1,21 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {Button, TextField} from "@material-ui/core";
 
 type PropsType = {
 	callBackAddTask: (title: string) => void
 }
 
-export const AddItemForm:React.FC<PropsType> = ({callBackAddTask, ...props}) => {
+export const AddItemForm:React.FC<PropsType> = ({callBackAddTask}) => {
 
 	let [title, setTitle] = useState("")
-	let [error, setError] = useState<string | null>(null)
+	let [error, setError] = useState<boolean>(false)
 
 	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		setTitle(e.currentTarget.value)
 	}
 	const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-		setError(null);
-		if (e.charCode === 13) {
+		setError(false);
+		if (e.key === 'Enter') {
 			addTask();
 		}
 	}
@@ -24,19 +25,24 @@ export const AddItemForm:React.FC<PropsType> = ({callBackAddTask, ...props}) => 
 			callBackAddTask(title.trim());
 			setTitle("");
 		} else {
-			setError("Title is required");
+			setError(true);
 		}
 	}
 
 	return(
 		<div>
-			<input value={title}
-				   onChange={onChangeHandler}
-				   onKeyPress={onKeyPressHandler}
-				   className={error ? "error" : ""}
+			<TextField id="outlined-basic"
+					   size="small"
+					   error={error}
+					   label={error ? 'Title is required' : 'Add new'}
+					   variant="outlined"
+					   value={title}
+					   onChange={onChangeHandler}
+					   onKeyPress={onKeyPressHandler}
+					   className={error ? "error" : ""}
 			/>
-			<button onClick={addTask}>+</button>
-			{error && <div className="error-message">{error}</div>}
+
+			<Button variant = "contained" color="primary" onClick={addTask} style={{maxWidth: '38px', maxHeight:'38px', minWidth:'38px', minHeight:'38px' }} >+</Button>
 		</div>
 	);
 }

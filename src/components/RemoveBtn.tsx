@@ -1,10 +1,10 @@
 import React from 'react';
+import {IconButton} from "@material-ui/core";
+import {Delete} from "@material-ui/icons";
 
 type PropsType = {
 	name: string
 	callBack:() => void
-
-
 }
 
 const RemoveBtn = (props:PropsType) => {
@@ -14,7 +14,9 @@ const RemoveBtn = (props:PropsType) => {
 	}
 
 	return (
-		<button onClick={onClickHandler} >{props.name}</button>
+		<IconButton aria-label="delete" onClick={onClickHandler}>
+			<Delete />
+		</IconButton>
 	);
 };
 
