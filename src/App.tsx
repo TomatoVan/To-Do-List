@@ -8,10 +8,20 @@ import {Container, Grid, Paper} from "@mui/material";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
+export type TasksType = {
+	id:string,
+	title:string,
+	isDone:boolean
+}
+
 export type TodolistsType = {
 	id:string
 	title:string
 	filter:FilterValuesType
+}
+
+export type TasksStateType = {
+	[index: string ]:TasksType[]
 }
 
 function App() {
@@ -24,7 +34,7 @@ function App() {
 		{id: todolistID2, title: 'What to buy', filter: 'all'},
 	])
 
-	let [tasks, setTasks] = useState({
+	let [tasks, setTasks] = useState<TasksStateType>({
 		[todolistID1]: [
 			{id: v1(), title: "HTML&CSS", isDone: true},
 			{id: v1(), title: "JS", isDone: true},
@@ -51,6 +61,8 @@ function App() {
 
 	function removeTodolist(id: string) {
 		setTodolists(todolists.filter(tl => tl.id !== id))
+		delete tasks[id]
+		setTasks({...tasks})
 	}
 
 	function removeTask(id: string, todolistId: string) {

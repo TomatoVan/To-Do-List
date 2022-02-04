@@ -5,6 +5,7 @@ import EditableSpan from "./components/EditableSpan";
 import RemoveBtn from "./components/RemoveBtn";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
+import UniversalCheckbox from "./components/UniversalCheckbox";
 
 
 type TaskType = {
@@ -57,7 +58,7 @@ export const Todolist = (props: PropsType) => {
 
     return <div>
         <h3>
-			<EditableSpan title = {props.title} changeTask={(title)=>callBackHandlerForUpdateTitle(title)}/>
+			<EditableSpan title = {props.title} changeTask={callBackHandlerForUpdateTitle}/>
 			<RemoveBtn name={'x'} callBack={removeTodolistCallBack}/>
 		</h3>
 		<AddItemForm callBackAddTask={callBackHandler}/>
@@ -65,10 +66,11 @@ export const Todolist = (props: PropsType) => {
             {
                 props.tasks.map(t => {
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
-						<Checkbox color="primary"
+						{/*<Checkbox color="primary"
 								  onChange={(e )=>onChangeHandler(t.id, e.currentTarget.checked)}
 								  checked={t.isDone}
-						/>
+						/>*/}
+						<UniversalCheckbox changeBox={(e) => onChangeHandler(t.id, e)} checked={t.isDone}/>
 						<EditableSpan title = {t.title} changeTask={(title)=>callBackHandlerForUpdateTask(t.id, title)}/>
                         <RemoveBtn name={'x'} callBack={() =>removeTaskCallBack(t.id)}/>
                     </li>
