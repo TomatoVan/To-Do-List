@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
-import {v1} from 'uuid';
 import {AddItemForm} from "./components/AddItemForm";
 import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
+import {AddTodolist, ChangeFilter, ChangeTitle, RemoveTodolist} from "./state/todolistsReducer";
+import {AddTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask} from "./state/tasksReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootState} from "./state/store";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -26,15 +29,15 @@ export type TasksStateType = {
 
 function App() {
 
-	let todolistID1 = v1();
+	/*	let todolistID1 = v1();
 	let todolistID2 = v1();
 
-	let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+	let [todolists] = useReducer(todolistsReducer,[
 		{id: todolistID1, title: 'What to learn', filter: 'all'},
 		{id: todolistID2, title: 'What to buy', filter: 'all'},
 	])
 
-	let [tasks, setTasks] = useState<TasksStateType>({
+	let [tasks] = useReducer(tasksReducer,{
 		[todolistID1]: [
 			{id: v1(), title: "HTML&CSS", isDone: true},
 			{id: v1(), title: "JS", isDone: true},
@@ -49,44 +52,58 @@ function App() {
 			{id: v1(), title: "Rest API2", isDone: false},
 			{id: v1(), title: "GraphQL2", isDone: false},
 		]
-	});
+	});*/
+
+	const dispatch = useDispatch()
+	const todolists = useSelector<AppRootState,TodolistsType[]>(state => state.todolists)
+	const tasks = useSelector<AppRootState,TasksStateType >(state => state.tasks)
+
 
 	const changeTitle = (id:string, title:string) => {
-		setTodolists(todolists.map(tl => tl.id === id ? {...tl, title:title} : tl))
+		dispatch(ChangeTitle(id, title))
+		/*setTodolists(todolists.map(tl => tl.id === id ? {...tl, title:title} : tl))*/
 	}
 
 	const changeTask = (todolistID:string,id:string, title:string) => {
-		setTasks({...tasks, [todolistID]: tasks[todolistID].map(t => t.id === id ? {...t, title: title} : t)})
+		dispatch(ChangeTaskTitle(todolistID, title, id))
+	/*	setTasks({...tasks, [todolistID]: tasks[todolistID].map(t => t.id === id ? {...t, title: title} : t)})*/
 	}
 
 	function removeTodolist(id: string) {
-		setTodolists(todolists.filter(tl => tl.id !== id))
-		delete tasks[id]
-		setTasks({...tasks})
+		let action = RemoveTodolist(id)
+		dispatch(action)
+		/*setTodolists(todolists.filter(tl => tl.id !== id))*/
+		/*delete tasks[id]
+		setTasks({...tasks})*/
 	}
 
 	function removeTask(id: string, todolistId: string) {
-		setTasks({...tasks, [todolistId]: tasks[todolistId].filter(t => t.id !== id)})
+		dispatch(RemoveTask(todolistId, id))
+		/*setTasks({...tasks, [todolistId]: tasks[todolistId].filter(t => t.id !== id)})*/
 	}
 
 	function addTask(title: string, todolistId: string) {
-		let newTask = {id: v1(), title: title, isDone: false};
-		setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
+		dispatch(AddTask(todolistId, title))
+		/*let newTask = {id: v1(), title: title, isDone: false};
+		setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})*/
 	}
 
 	const addTodolist = (title:string) => {
-		let newId=v1()
-		let newTodolist:TodolistsType = {id: newId, title: title, filter: 'all'}
-		setTodolists([newTodolist, ...todolists])
-		setTasks({...tasks, [newId]: []})
+		let action = AddTodolist(title)
+		dispatch(action)
+		/*let newTodolist:TodolistsType = {id: newId, title: title, filter: 'all'}
+		setTodolists([newTodolist, ...todolists])*/
+		/*setTasks({...tasks, [newId]: []})*/
 	}
 
 	function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
-		setTasks({...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, isDone: isDone} : t)})
+		dispatch(ChangeTaskStatus(todolistId, isDone, taskId))
+		/*setTasks({...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, isDone: isDone} : t)})*/
 	}
 
 	function changeFilter(value: FilterValuesType, id: string) {
-		setTodolists(todolists.map(t => t.id === id ? {...t, filter: value} : t))
+		dispatch(ChangeFilter(id, value))
+		/*setTodolists(todolists.map(t => t.id === id ? {...t, filter: value} : t))*/
 	}
 
 	return (
