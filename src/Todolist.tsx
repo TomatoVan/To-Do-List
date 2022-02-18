@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from "./components/AddItemForm";
 import EditableSpan from "./components/EditableSpan";
@@ -29,31 +29,36 @@ type PropsType = {
 
 export const Todolist = (props: PropsType) => {
 
-    const onAllClickHandler = () => props.changeFilter("all", props.id);
-    const onActiveClickHandler = () => props.changeFilter("active", props.id);
-    const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
+    const onAllClickHandler = useCallback(() => props.changeFilter("all", props.id),
+		[props.changeFilter,props.id]);
+    const onActiveClickHandler = useCallback(() => props.changeFilter("active", props.id),
+		[props.changeFilter,props.id]);
+    const onCompletedClickHandler = useCallback(() => props.changeFilter("completed", props.id),
+		[props.changeFilter,props.id]);
 
-	const removeTodolistCallBack = () => {
+	const removeTodolistCallBack = useCallback(() => {
 		props.removeTodolist(props.id)
-	}
+	},[props.removeTodolist, [props.id]])
 
-	const removeTaskCallBack = (tID:string) => props.removeTask(tID, props.id)
+	const removeTaskCallBack = useCallback((tID:string) => {
+			props.removeTask(tID, props.id)
+	},[props.removeTask, props.id])
 
-	const onChangeHandler = (tID:string, event:boolean) => {
+	const onChangeHandler = useCallback((tID:string, event:boolean) => {
 		props.changeTaskStatus(tID, event, props.id);
-	}
+	},[props.changeTaskStatus, props.id])
 
-	const callBackHandler = (title:string) => {
+	const callBackHandler = useCallback((title:string) => {
 		props.addTask(title,props.id)
-	}
+	},[props.addTask,props.id ])
 
-	const callBackHandlerForUpdateTask = (tID:string, title:string) => {
+	const callBackHandlerForUpdateTask = useCallback((tID:string, title:string) => {
 		props.changeTask(props.id,tID, title)
-	}
+	},[props.changeTask, props.id])
 
-	const callBackHandlerForUpdateTitle = (title:string) => {
+	const callBackHandlerForUpdateTitle = useCallback((title:string) => {
 		props.changeTitle(props.id, title)
-	}
+	},[props.changeTitle, props.id])
 
     return <div>
         <h3>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import {AddItemForm} from "./components/AddItemForm";
@@ -24,87 +24,49 @@ export type TodolistsType = {
 }
 
 export type TasksStateType = {
-	[index: string ]:TasksType[]
+	[key: string ]:TasksType[]
 }
 
 function App() {
 
-	/*	let todolistID1 = v1();
-	let todolistID2 = v1();
-
-	let [todolists] = useReducer(todolistsReducer,[
-		{id: todolistID1, title: 'What to learn', filter: 'all'},
-		{id: todolistID2, title: 'What to buy', filter: 'all'},
-	])
-
-	let [tasks] = useReducer(tasksReducer,{
-		[todolistID1]: [
-			{id: v1(), title: "HTML&CSS", isDone: true},
-			{id: v1(), title: "JS", isDone: true},
-			{id: v1(), title: "ReactJS", isDone: false},
-			{id: v1(), title: "Rest API", isDone: false},
-			{id: v1(), title: "GraphQL", isDone: false},
-		],
-		[todolistID2]: [
-			{id: v1(), title: "HTML&CSS2", isDone: true},
-			{id: v1(), title: "JS2", isDone: true},
-			{id: v1(), title: "ReactJS2", isDone: false},
-			{id: v1(), title: "Rest API2", isDone: false},
-			{id: v1(), title: "GraphQL2", isDone: false},
-		]
-	});*/
-
 	const dispatch = useDispatch()
 	const todolists = useSelector<AppRootState,TodolistsType[]>(state => state.todolists)
-	const tasks = useSelector<AppRootState,TasksStateType >(state => state.tasks)
+	const tasks = useSelector<AppRootState,TasksStateType>(state => state.tasks)
 
 
-	const changeTitle = (id:string, title:string) => {
+	const changeTitle = useCallback((id:string, title:string) => {
 		dispatch(ChangeTitle(id, title))
-		/*setTodolists(todolists.map(tl => tl.id === id ? {...tl, title:title} : tl))*/
-	}
+	},[dispatch])
 
-	const changeTask = (todolistID:string,id:string, title:string) => {
+	const changeTask = useCallback((todolistID:string,id:string, title:string) => {
 		dispatch(ChangeTaskTitle(todolistID, title, id))
-	/*	setTasks({...tasks, [todolistID]: tasks[todolistID].map(t => t.id === id ? {...t, title: title} : t)})*/
-	}
+	}, [dispatch])
 
-	function removeTodolist(id: string) {
+	const removeTodolist = useCallback((id: string) => {
 		let action = RemoveTodolist(id)
 		dispatch(action)
-		/*setTodolists(todolists.filter(tl => tl.id !== id))*/
-		/*delete tasks[id]
-		setTasks({...tasks})*/
-	}
+	},[dispatch])
 
-	function removeTask(id: string, todolistId: string) {
+	const removeTask = useCallback((id: string, todolistId: string) => {
 		dispatch(RemoveTask(todolistId, id))
-		/*setTasks({...tasks, [todolistId]: tasks[todolistId].filter(t => t.id !== id)})*/
-	}
+	}, [dispatch])
 
-	function addTask(title: string, todolistId: string) {
+	const addTask = useCallback((title: string, todolistId: string) => {
 		dispatch(AddTask(todolistId, title))
-		/*let newTask = {id: v1(), title: title, isDone: false};
-		setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})*/
-	}
+	}, [dispatch])
 
-	const addTodolist = (title:string) => {
+	const addTodolist = useCallback((title:string) => {
 		let action = AddTodolist(title)
 		dispatch(action)
-		/*let newTodolist:TodolistsType = {id: newId, title: title, filter: 'all'}
-		setTodolists([newTodolist, ...todolists])*/
-		/*setTasks({...tasks, [newId]: []})*/
-	}
+	}, [dispatch])
 
-	function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
+	const changeStatus = useCallback((taskId: string, isDone: boolean, todolistId: string) => {
 		dispatch(ChangeTaskStatus(todolistId, isDone, taskId))
-		/*setTasks({...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, isDone: isDone} : t)})*/
-	}
+	}, [dispatch])
 
-	function changeFilter(value: FilterValuesType, id: string) {
+	const changeFilter = useCallback((value: FilterValuesType, id: string) => {
 		dispatch(ChangeFilter(id, value))
-		/*setTodolists(todolists.map(t => t.id === id ? {...t, filter: value} : t))*/
-	}
+	},[dispatch])
 
 	return (
 		<div className="App">

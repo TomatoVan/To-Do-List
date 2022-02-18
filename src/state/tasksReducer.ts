@@ -1,4 +1,4 @@
-import {TasksStateType, TodolistsType} from "../App";
+import {TasksStateType} from "../App";
 import {v1} from "uuid";
 import {addTodolistAcType, removeTodolistACType, todolistID1, todolistID2} from "./todolistsReducer";
 
@@ -7,15 +7,10 @@ export type addTaskACACType = ReturnType<typeof AddTask>
 export type changeTaskStatusACType = ReturnType<typeof ChangeTaskStatus>
 export type changeTaskTitleACType = ReturnType<typeof ChangeTaskTitle>
 
-export const RemoveTask = (todolistId:string, id:string) => ({type: "REMOVE-TASK" , payload:{todolistId, id}} as const)
-export const AddTask = (todolistId:string, title:string) => ({type: "ADD-TASK" , payload:{todolistId,title}} as const)
-export const ChangeTaskStatus = (todolistId:string, checked:boolean, id:string) => ({type: "CHANGE-TASK-STATUS" , payload:{todolistId,checked, id}} as const)
-export const ChangeTaskTitle = (todolistId:string, title:string, id:string) => ({type: "CHANGE-TASK-TITLE" , payload:{todolistId,title, id}} as const)
-
 type GeneralType = removeTaskACType | addTaskACACType |changeTaskStatusACType | changeTaskTitleACType | addTodolistAcType | removeTodolistACType
 
 const initialState:TasksStateType = {
-	[todolistID1]: [
+	/*[todolistID1]: [
 		{id: v1(), title: "HTML&CSS", isDone: true},
 		{id: v1(), title: "JS", isDone: true},
 		{id: v1(), title: "ReactJS", isDone: false},
@@ -28,7 +23,7 @@ const initialState:TasksStateType = {
 		{id: v1(), title: "ReactJS2", isDone: false},
 		{id: v1(), title: "Rest API2", isDone: false},
 		{id: v1(), title: "GraphQL2", isDone: false},
-	]
+	]*/
 }
 
 export const tasksReducer = (state:TasksStateType = initialState, action:GeneralType) : TasksStateType => {
@@ -58,4 +53,10 @@ export const tasksReducer = (state:TasksStateType = initialState, action:General
 
 	}
 }
+
+export const RemoveTask = (todolistId:string, id:string) => ({type: "REMOVE-TASK" , payload:{todolistId, id}} as const)
+export const AddTask = (todolistId:string, title:string) => ({type: "ADD-TASK" , payload:{todolistId,title}} as const)
+export const ChangeTaskStatus = (todolistId:string, checked:boolean, id:string) => ({type: "CHANGE-TASK-STATUS" , payload:{todolistId,checked, id}} as const)
+export const ChangeTaskTitle = (todolistId:string, title:string, id:string) => ({type: "CHANGE-TASK-TITLE" , payload:{todolistId,title, id}} as const)
+
 

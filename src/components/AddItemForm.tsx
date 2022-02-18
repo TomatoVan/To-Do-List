@@ -5,7 +5,8 @@ type PropsType = {
 	callBackAddTask: (title: string) => void
 }
 
-export const AddItemForm:React.FC<PropsType> = ({callBackAddTask}) => {
+export const AddItemForm:React.FC<PropsType> = React.memo(({callBackAddTask}) => {
+
 
 	let [title, setTitle] = useState("")
 	let [error, setError] = useState<boolean>(false)
@@ -14,7 +15,7 @@ export const AddItemForm:React.FC<PropsType> = ({callBackAddTask}) => {
 		setTitle(e.currentTarget.value)
 	}
 	const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-		setError(false);
+		if (error) setError(false);
 		if (e.key === 'Enter') {
 			addTask();
 		}
@@ -45,4 +46,4 @@ export const AddItemForm:React.FC<PropsType> = ({callBackAddTask}) => {
 			<Button variant = "contained" color="primary" onClick={addTask} style={{maxWidth: '38px', maxHeight:'38px', minWidth:'38px', minHeight:'38px' }} >+</Button>
 		</div>
 	);
-}
+})

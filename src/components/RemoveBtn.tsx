@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 
@@ -7,17 +7,17 @@ type PropsType = {
 	callBack:() => void
 }
 
-const RemoveBtn = (props:PropsType) => {
+const RemoveBtn = React.memo((props:PropsType) => {
 
-	const onClickHandler = () => {
+	const onClickHandler = useCallback(() => {
 		props.callBack()
-	}
+	},[props.callBack])
 
 	return (
 		<IconButton aria-label="delete" onClick={onClickHandler}>
 			<Delete />
 		</IconButton>
 	);
-};
+});
 
 export default RemoveBtn;
