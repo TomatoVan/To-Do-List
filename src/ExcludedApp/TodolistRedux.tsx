@@ -56,7 +56,7 @@ export const Todolist = (props: PropsType) => {
 
     return <div>
         <h3>
-			<EditableSpan title = {todolist.title} changeTask={callBackHandlerForUpdateTitle}/>
+			<EditableSpan titleFromProps = {todolist.title} changeTask={callBackHandlerForUpdateTitle}/>
 			<RemoveBtn name={'x'} callBack={removeTodolistCallBack}/>
 		</h3>
 		<AddItemForm callBackAddTask={callBackHandler}/>
@@ -65,7 +65,7 @@ export const Todolist = (props: PropsType) => {
 				tasks.map(t => {
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
 						<UniversalCheckbox changeBox={(e) => onChangeHandler(t.id, e)} checked={t.isDone}/>
-						<EditableSpan title = {t.title} changeTask={(title)=>callBackHandlerForUpdateTask(t.id, title)}/>
+						<EditableSpan titleFromProps = {t.title} changeTask={(title)=>callBackHandlerForUpdateTask(t.id, title)}/>
                         <RemoveBtn name={'x'} callBack={() =>removeTaskCallBack(t.id)}/>
                     </li>
                 })

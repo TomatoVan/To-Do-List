@@ -6,14 +6,14 @@ type CheckboxesType = {
 	changeBox: (event: boolean) => void
 }
 
-const UniversalCheckbox = React.memo((props:CheckboxesType) => {
+const UniversalCheckbox:React.FC<CheckboxesType> = React.memo(({checked, changeBox}) => {
 
 	const onChangeCallback = useCallback((e:ChangeEvent<HTMLInputElement>) => {
-		props.changeBox(e.currentTarget.checked)
-	},[props.changeBox])
+		changeBox(e.currentTarget.checked)
+	},[changeBox])
 
 	return (
-			<Checkbox color="primary" onChange={onChangeCallback} checked={props.checked}/>
+			<Checkbox color="primary" onChange={onChangeCallback} checked={checked}/>
 	);
 });
 

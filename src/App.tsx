@@ -27,19 +27,19 @@ export type TasksStateType = {
 	[key: string ]:TasksType[]
 }
 
-function App() {
+const App = () => {
 
 	const dispatch = useDispatch()
 	const todolists = useSelector<AppRootState,TodolistsType[]>(state => state.todolists)
 	const tasks = useSelector<AppRootState,TasksStateType>(state => state.tasks)
 
-
 	const changeTitle = useCallback((id:string, title:string) => {
 		dispatch(ChangeTitle(id, title))
 	},[dispatch])
 
-	const changeTask = useCallback((todolistID:string,id:string, title:string) => {
-		dispatch(ChangeTaskTitle(todolistID, title, id))
+	const addTodolist = useCallback((title:string) => {
+		let action = AddTodolist(title)
+		dispatch(action)
 	}, [dispatch])
 
 	const removeTodolist = useCallback((id: string) => {
@@ -47,26 +47,26 @@ function App() {
 		dispatch(action)
 	},[dispatch])
 
-	const removeTask = useCallback((id: string, todolistId: string) => {
-		dispatch(RemoveTask(todolistId, id))
-	}, [dispatch])
+	const changeFilter = useCallback((value: FilterValuesType, id: string) => {
+		dispatch(ChangeFilter(id, value))
+	},[dispatch])
 
 	const addTask = useCallback((title: string, todolistId: string) => {
 		dispatch(AddTask(todolistId, title))
 	}, [dispatch])
 
-	const addTodolist = useCallback((title:string) => {
-		let action = AddTodolist(title)
-		dispatch(action)
-	}, [dispatch])
+	// const changeTask = useCallback((todolistID:string,id:string, title:string) => {
+	// 	dispatch(ChangeTaskTitle(todolistID, title, id))
+	// }, [dispatch])
 
-	const changeStatus = useCallback((taskId: string, isDone: boolean, todolistId: string) => {
-		dispatch(ChangeTaskStatus(todolistId, isDone, taskId))
-	}, [dispatch])
+	// const removeTask = useCallback((id: string, todolistId: string) => {
+	// 	dispatch(RemoveTask(todolistId, id))
+	// }, [dispatch])
+	//
 
-	const changeFilter = useCallback((value: FilterValuesType, id: string) => {
-		dispatch(ChangeFilter(id, value))
-	},[dispatch])
+	// const changeStatus = useCallback((taskId: string, isDone: boolean, todolistId: string) => {
+	// 	 	dispatch(ChangeTaskStatus(todolistId, isDone, taskId))
+	// 	 }, [dispatch])
 
 	return (
 		<div className="App">
@@ -77,30 +77,17 @@ function App() {
 				</Grid>
 				<Grid container spacing={3}>
 					{todolists.map(tl => {
-
-						let tasksForTodolist = tasks[tl.id];
-
-						if (tl.filter === "active") {
-							tasksForTodolist = tasks[tl.id].filter(t => !t.isDone);
-						}
-						if (tl.filter === "completed") {
-							tasksForTodolist = tasks[tl.id].filter(t => t.isDone);
-						}
-
 						return <Grid item>
 							<Paper elevation={4} style={{padding: "10px"}}>
 							<Todolist
 								key={tl.id}
 								id={tl.id}
 								title={tl.title}
-								tasks={tasksForTodolist}
-								removeTask={removeTask}
+								tasks={tasks[tl.id]}
 								changeFilter={changeFilter}
 								addTask={addTask}
-								changeTaskStatus={changeStatus}
 								filter={tl.filter}
 								removeTodolist={removeTodolist}
-								changeTask={changeTask}
 								changeTitle={changeTitle}
 							/>
 							</Paper>
