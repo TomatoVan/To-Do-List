@@ -113,13 +113,13 @@ function App() {
 								<Todolist
 									key={tl.id}
 									id={tl.id}
-									title={tl.title}
+								/*	title={tl.title}
 									tasks={tasksForTodolist}
 									changeFilter={changeFilter}
 									addTask={addTask}
 									filter={tl.filter}
 									removeTodolist={removeTodolist}
-									changeTitle={changeTitle}
+									changeTitle={changeTitle}*/
 								/>
 							</Paper>
 						</Grid>

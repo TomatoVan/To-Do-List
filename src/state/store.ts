@@ -10,7 +10,8 @@ const rootReducer = combineReducers({
 
 export type AppRootState = ReturnType<typeof rootReducer>
 
-export const store = createStore(rootReducer)
+// @ts-ignore
+export const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 // @ts-ignore
 window.store = store
