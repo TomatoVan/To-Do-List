@@ -11,7 +11,7 @@ const EditableSpan:React.FC<EditableSpanPropsType> = React.memo(({titleFromProps
 
 	const [edit, setEdit] = useState(false)
 
-	const onDoubleClickHandler =() => {
+	const onDoubleClickHandler = () => {
 		setEdit(true)
 	}
 

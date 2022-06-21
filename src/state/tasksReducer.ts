@@ -26,6 +26,7 @@ const initialState:TasksStateType = {
 	]*/
 }
 
+
 export const tasksReducer = (state:TasksStateType = initialState, action:GeneralType) : TasksStateType => {
 	switch (action.type) {
 		case "ADD-TODOLIST": {
