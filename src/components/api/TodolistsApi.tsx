@@ -1,4 +1,6 @@
 import axios from "axios";
+import React from "react";
+import {useEffect, useState} from "react";
 
 const instance = axios.create({
 	withCredentials: true,
@@ -15,7 +17,7 @@ export type TodolistType = {
 	order: number
 }
 
-type ResponseType<D> = {
+type ResponseType<D = {}> = {
 	resultCode: number
 	messages: Array<string>
 	data: D
@@ -24,7 +26,7 @@ type ResponseType<D> = {
 export type TaskType = {
 	description: string,
 	title: string,
-	completed: boolean,
+	//completed: boolean,
 	status:number,
 	priority: number,
 	startDate: string,
@@ -41,6 +43,16 @@ type GetTasksResponseType = {
 	items: TaskType[]
 }
 
+type UpdateTaskModelType = {
+	title: string,
+	description: string,
+	//completed: boolean,
+	status:number,
+	priority: number,
+	startDate: string,
+	deadline: string,
+}
+
 export const todolistsAPI = {
 
 	getTodolists() {
@@ -54,12 +66,12 @@ export const todolistsAPI = {
 	},
 
 	deleteTodolist(todolistId: string) {
-		return instance.delete<ResponseType<{}>>(`/todo-lists/${todolistId}`)
+		return instance.delete<ResponseType>(`/todo-lists/${todolistId}`)
 			.then(res => res.data)
 	},
 
 	updateTodolistTitle(todolistId: string, title: string) {
-		return instance.put<ResponseType<{}>>(`/todo-lists/${todolistId}`, {title})
+		return instance.put<ResponseType>(`/todo-lists/${todolistId}`, {title})
 			.then(res => res.data)
 	},
 
@@ -82,11 +94,19 @@ export const tasksAPI = {
 			.then(res => res.data)
 	},
 
-	//put tasks
+	updateTasks(todolistId: string, taskId: string, model: UpdateTaskModelType ) {
+		return instance.put<ResponseType<{item : TaskType}>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {model})
+			.then(res => res.data)
+	},
 
 	deleteTask(todolistId: string, taskId: string) {
-		return instance.delete<ResponseType<{}>>(`/todo-lists/${todolistId}/tasks/${taskId}`)
+		return instance.delete<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
 			.then(res => res.data)
-	}
+	},
+
+	reorderTasks(todolistId: string, taskId: string, putAfterItemId: string) {
+		return instance.put<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}/reorder`, {putAfterItemId})
+			.then(res => res.data)
+	},
 
 }
