@@ -7,6 +7,7 @@ import {Container, Grid, Paper} from "@mui/material";
 import {AddTodolist} from "./state/todolistsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
+import {GetTodolists} from "./components/api/TodolistsApi";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -38,6 +39,7 @@ const App = () => {
 
 	return (
 		<div className="App">
+			<GetTodolists/>
 			<ButtonAppBar/>
 			<Container fixed >
 				<Grid container  style={{padding: "20px"}}>

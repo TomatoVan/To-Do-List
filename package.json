@@ -2,7 +2,7 @@
   "name": "it-incubator-todolist-ts",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://TomatoVan.github.io/Todolist/",
+  "homepage": "https://TomatoVan.github.io/To-Do-List/",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
