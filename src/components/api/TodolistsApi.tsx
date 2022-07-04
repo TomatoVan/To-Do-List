@@ -57,7 +57,6 @@ export const todolistsAPI = {
 
 	getTodolists() {
 		return instance.get<TodolistType[]>(`/todo-lists`)
-			.then(res => res.data)
 	},
 
 	createTodolist(title: string) {
@@ -90,7 +89,7 @@ export const tasksAPI = {
 	},
 
 	postTasks(todolistId: string, title: string) {
-		return instance.post<ResponseType<{item : TaskType}>>(`/todo-lists`, {title})
+		return instance.post<ResponseType<{item : TaskType}>>(`/todo-lists/${todolistId}/tasks`, {title})
 			.then(res => res.data)
 	},
 

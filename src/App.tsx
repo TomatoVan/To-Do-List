@@ -1,26 +1,26 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import {AddItemForm} from "./components/AddItemForm";
 import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
-import {AddTodolist} from "./state/todolistsReducer";
+import {AddTodolist, setTodolistsThunk} from "./state/todolistsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
 import {GetTodolists} from "./components/api/TodolistsApi";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
-export type TasksType = {
-	id:string,
-	title:string,
-	isDone:boolean
-}
-
 export type TodolistsType = {
 	id:string
 	title:string
 	filter:FilterValuesType
+}
+
+export type TasksType = {
+	id:string,
+	title:string,
+	isDone:boolean
 }
 
 export type TasksStateType = {
@@ -32,10 +32,13 @@ const App = () => {
 	const dispatch = useDispatch()
 	const todolists = useSelector<AppRootState,TodolistsType[]>(state => state.todolists)
 
+	useEffect(() => {
+		dispatch(setTodolistsThunk)
+	}, [])
+
 	const addTodolist = useCallback((title:string) => {
 		dispatch(AddTodolist(title))
 	}, [dispatch])
-
 
 	return (
 		<div className="App">
