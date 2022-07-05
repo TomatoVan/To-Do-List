@@ -56,7 +56,7 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 		<AddItemForm callBackAddTask={callBackHandler}/>
         <ul>
             {
-				tasks.map(t => {
+				tasks && tasks.map(t => {
 					return <Task key={t.id} taskId={t.id} todolistId={todolist.id} />
                 })
             }

@@ -4,10 +4,10 @@ import {Todolist} from './Todolist';
 import {AddItemForm} from "./components/AddItemForm";
 import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
-import {AddTodolist, setTodolistsThunk} from "./state/todolistsReducer";
+import {AddTodolist, SetTodolist, setTodolistsThunk} from "./state/todolistsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
-import {GetTodolists} from "./components/api/TodolistsApi";
+import {todolistsAPI} from "./components/api/TodolistsApi";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -33,8 +33,13 @@ const App = () => {
 	const todolists = useSelector<AppRootState,TodolistsType[]>(state => state.todolists)
 
 	useEffect(() => {
-		dispatch(setTodolistsThunk)
-	}, [])
+		todolistsAPI.getTodolists()
+			.then(res => {
+				let todos = res.data
+				dispatch(SetTodolist(todos))
+			})
+
+	}, [dispatch])
 
 	const addTodolist = useCallback((title:string) => {
 		dispatch(AddTodolist(title))
@@ -42,7 +47,7 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<GetTodolists/>
+			{/*<GetTodolists/>*/}
 			<ButtonAppBar/>
 			<Container fixed >
 				<Grid container  style={{padding: "20px"}}>

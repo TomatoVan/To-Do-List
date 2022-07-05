@@ -110,6 +110,7 @@ export const tasksAPI = {
 
 }
 
+/*
 export const GetTodolists = () => {
 
 	const [state, setState] = useState<any>(null)
@@ -156,4 +157,4 @@ export const GetTodolists = () => {
 
 	</div>
 
-}
+}*/
