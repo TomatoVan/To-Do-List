@@ -4,10 +4,10 @@ import {Todolist} from './Todolist';
 import {AddItemForm} from "./components/AddItemForm";
 import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
-import {AddTodolist, SetTodolist, setTodolistsThunk} from "./state/todolistsReducer";
+import {AddTodolist, createTodolistTC, SetTodolist, setTodolistsTC} from "./state/todolistsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
-import {todolistsAPI} from "./components/api/TodolistsApi";
+import {fetchTasksTC} from "./state/tasksReducer";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -33,16 +33,13 @@ const App = () => {
 	const todolists = useSelector<AppRootState,TodolistsType[]>(state => state.todolists)
 
 	useEffect(() => {
-		todolistsAPI.getTodolists()
-			.then(res => {
-				let todos = res.data
-				dispatch(SetTodolist(todos))
-			})
-
+		dispatch(setTodolistsTC())
 	}, [dispatch])
 
+	
 	const addTodolist = useCallback((title:string) => {
-		dispatch(AddTodolist(title))
+		// dispatch(AddTodolist(title))
+		dispatch(createTodolistTC(title))
 	}, [dispatch])
 
 	return (

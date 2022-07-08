@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {TasksType, TodolistsType} from './App';
 import {AddItemForm} from "./components/AddItemForm";
 import EditableSpan from "./components/EditableSpan";
@@ -7,8 +7,8 @@ import Button from "@mui/material/Button";
 import Task from "./state/Task";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
-import {ChangeFilter, ChangeTitle, RemoveTodolist} from "./state/todolistsReducer";
-import {AddTask} from "./state/tasksReducer";
+import {ChangeFilter, ChangeTitle, deleteTodolistTC, RemoveTodolist, updateTodolistTC} from "./state/todolistsReducer";
+import {AddTask, createTaskTC, fetchTasksTC} from "./state/tasksReducer";
 
 type TodolistPropsType = {
 	id:string
@@ -20,6 +20,9 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 	let todolist = useSelector<AppRootState,TodolistsType>(state => state.todolists.filter(tl => tl.id === id)[0])
 	let tasks = useSelector<AppRootState, Array<TasksType>>(state => state.tasks[id])
 
+	useEffect(()=> {
+		dispatch(fetchTasksTC(todolist.id))
+	}, [dispatch, todolist.id])
 
     const onAllClickHandler = useCallback(() => dispatch((ChangeFilter(todolist.id, "all"))),
 		[dispatch, todolist.id]);
@@ -37,15 +40,18 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 	}
 
 	const removeTodolistCallBack = useCallback(() => {
-		dispatch(RemoveTodolist(todolist.id))
+		// dispatch(RemoveTodolist(todolist.id))
+		dispatch(deleteTodolistTC(todolist.id))
 	},[dispatch, todolist.id])
 
 	const callBackHandler = useCallback((title:string) => {
-		dispatch(AddTask(todolist.id, title))
+		// dispatch(AddTask(todolist.id, title))
+		dispatch(createTaskTC(todolist.id, title))
 	},[dispatch, todolist.id])
 
 	const callBackHandlerForUpdateTitle = useCallback((title:string) => {
-		dispatch(ChangeTitle(todolist.id, title))
+		// dispatch(ChangeTitle(todolist.id, title))
+		dispatch(updateTodolistTC(todolist.id, title))
 	},[dispatch, todolist.id])
 
     return <div>
@@ -56,7 +62,7 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 		<AddItemForm callBackAddTask={callBackHandler}/>
         <ul>
             {
-				tasks && tasks.map(t => {
+				tasks.map(t => {
 					return <Task key={t.id} taskId={t.id} todolistId={todolist.id} />
                 })
             }

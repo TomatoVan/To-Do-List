@@ -59,11 +59,35 @@ export const ChangeTitle = (id:string, title:string) => ({type: "CHANGE-TODOLIST
 export const ChangeFilter = (id:string, filter:FilterValuesType) => ({type: "CHANGE-TODOLIST-FILTER", payload:{id, filter}} as const)
 export const SetTodolist = (todolists: TodolistType[]) => ({type: "SET-TODOLIST", payload:{todolists}} as const)
 
-export const setTodolistsThunk = () => {
-	return (dispatch: Dispatch) => {
+export const setTodolistsTC = () => (dispatch: Dispatch) => {
 		todolistsAPI.getTodolists()
 			.then(res => {
+				console.log('get todo', res)
 				dispatch(SetTodolist(res.data))
 			})
 	}
+
+
+export const createTodolistTC = (title: string) => (dispatch: Dispatch) => {
+		todolistsAPI.createTodolist(title)
+			.then(res => {
+				console.log('post todo', res)
+				dispatch(AddTodolist(title))
+			})
+}
+
+export const deleteTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
+	todolistsAPI.deleteTodolist(todolistId)
+		.then(res => {
+			console.log('delete todo', res)
+			dispatch(RemoveTodolist(todolistId))
+		})
+}
+
+export const updateTodolistTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+	todolistsAPI.updateTodolistTitle(todolistId, title)
+		.then(res => {
+			console.log('update todo', res)
+			dispatch(ChangeTitle(todolistId, title))
+		})
 }

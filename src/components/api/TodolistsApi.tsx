@@ -61,22 +61,18 @@ export const todolistsAPI = {
 
 	createTodolist(title: string) {
 		return instance.post<ResponseType<{item : TodolistType}>>(`/todo-lists`, {title})
-			.then(res => res.data)
 	},
 
 	deleteTodolist(todolistId: string) {
 		return instance.delete<ResponseType>(`/todo-lists/${todolistId}`)
-			.then(res => res.data)
 	},
 
 	updateTodolistTitle(todolistId: string, title: string) {
 		return instance.put<ResponseType>(`/todo-lists/${todolistId}`, {title})
-			.then(res => res.data)
 	},
 
 	reorderTodolists(todolistId: string, putAfterItemId: string) {
 		return instance.put(`/todo-lists/${todolistId}/reorder`, {putAfterItemId})
-			.then(res => res.data)
 	},
 
 }
@@ -85,27 +81,22 @@ export const tasksAPI = {
 
 	getTasks(todolistId: string) {
 		return instance.get<GetTasksResponseType>(`/todo-lists/${todolistId}/tasks`)
-			.then(res => res.data)
 	},
 
 	postTasks(todolistId: string, title: string) {
 		return instance.post<ResponseType<{item : TaskType}>>(`/todo-lists/${todolistId}/tasks`, {title})
-			.then(res => res.data)
 	},
 
 	updateTasks(todolistId: string, taskId: string, model: UpdateTaskModelType ) {
 		return instance.put<ResponseType<{item : TaskType}>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {model})
-			.then(res => res.data)
 	},
 
 	deleteTask(todolistId: string, taskId: string) {
 		return instance.delete<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
-			.then(res => res.data)
 	},
 
 	reorderTasks(todolistId: string, taskId: string, putAfterItemId: string) {
 		return instance.put<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}/reorder`, {putAfterItemId})
-			.then(res => res.data)
 	},
 
 }

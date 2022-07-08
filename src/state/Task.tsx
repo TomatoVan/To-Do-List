@@ -5,7 +5,7 @@ import RemoveBtn from "../components/RemoveBtn";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./store";
 import { TasksType} from "../App";
-import {ChangeTaskStatus, ChangeTaskTitle, RemoveTask} from "./tasksReducer";
+import {ChangeTaskStatus, ChangeTaskTitle, deleteTaskTC, RemoveTask} from "./tasksReducer";
 
 type TaskPropsType = {
 	todolistId:string
@@ -27,7 +27,8 @@ const Task:React.FC<TaskPropsType> = React.memo(({ todolistId, taskId }) => {
 	}, [dispatch, taskId, todolistId])
 
 	const removeTask = useCallback(() => {
-		dispatch(RemoveTask(todolistId, taskId))
+		// dispatch(RemoveTask(todolistId, taskId))
+		dispatch(deleteTaskTC(todolistId, taskId))
 	}, [dispatch, taskId, todolistId])
 
 	return (

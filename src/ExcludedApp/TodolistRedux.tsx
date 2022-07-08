@@ -19,7 +19,6 @@ type TaskType = {
 
 type PropsType = {
 	id:string
-
 }
 
 export const Todolist = (props: PropsType) => {
