@@ -4,33 +4,20 @@ import {Todolist} from './Todolist';
 import {AddItemForm} from "./components/AddItemForm";
 import ButtonAppBar from "./components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
-import {AddTodolist, createTodolistTC, SetTodolist, setTodolistsTC} from "./state/todolistsReducer";
+import {createTodolistTC, setTodolistsTC, TodolistDomainType} from "./state/todolistsReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "./state/store";
-import {fetchTasksTC} from "./state/tasksReducer";
+import {AppRootStateType} from "./state/store";
+import {TaskType} from "./components/api/TodolistsApi";
 
-export type FilterValuesType = "all" | "active" | "completed";
-
-export type TodolistsType = {
-	id:string
-	title:string
-	filter:FilterValuesType
-}
-
-export type TasksType = {
-	id:string,
-	title:string,
-	isDone:boolean
-}
 
 export type TasksStateType = {
-	[key: string ]:TasksType[]
+	[key: string ]:TaskType[]
 }
 
 const App = () => {
 
 	const dispatch = useDispatch()
-	const todolists = useSelector<AppRootState,TodolistsType[]>(state => state.todolists)
+	const todolists = useSelector<AppRootStateType,TodolistDomainType[]>(state => state.todolists)
 
 	useEffect(() => {
 		dispatch(setTodolistsTC())

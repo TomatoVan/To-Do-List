@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect} from 'react';
-import {TasksType, TodolistsType} from './App';
 import {AddItemForm} from "./components/AddItemForm";
 import EditableSpan from "./components/EditableSpan";
 import RemoveBtn from "./components/RemoveBtn";
 import Button from "@mui/material/Button";
 import Task from "./state/Task";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "./state/store";
-import {ChangeFilter, ChangeTitle, deleteTodolistTC, RemoveTodolist, updateTodolistTC} from "./state/todolistsReducer";
-import {AddTask, createTaskTC, fetchTasksTC} from "./state/tasksReducer";
+import {AppRootStateType} from "./state/store";
+import {ChangeFilter, deleteTodolistTC, TodolistDomainType, updateTodolistTitleTC} from "./state/todolistsReducer";
+import {createTaskTC, fetchTasksTC} from "./state/tasksReducer";
+import {TaskStatuses, TaskType} from "./components/api/TodolistsApi";
 
 type TodolistPropsType = {
 	id:string
@@ -17,8 +17,8 @@ type TodolistPropsType = {
 export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 
 	const dispatch = useDispatch()
-	let todolist = useSelector<AppRootState,TodolistsType>(state => state.todolists.filter(tl => tl.id === id)[0])
-	let tasks = useSelector<AppRootState, Array<TasksType>>(state => state.tasks[id])
+	let todolist = useSelector<AppRootStateType,TodolistDomainType>(state => state.todolists.filter(tl => tl.id === id)[0])
+	let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[id])
 
 	useEffect(()=> {
 		dispatch(fetchTasksTC(todolist.id))
@@ -33,10 +33,10 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 
 
 	if (todolist.filter === "active") {
-		tasks = tasks.filter(t => !t.isDone);
+		tasks = tasks.filter(t => t.status === TaskStatuses.New);
 	}
 	if (todolist.filter === "completed") {
-		tasks = tasks.filter(t => t.isDone);
+		tasks = tasks.filter(t => t.status === TaskStatuses.Completed);
 	}
 
 	const removeTodolistCallBack = useCallback(() => {
@@ -51,7 +51,7 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 
 	const callBackHandlerForUpdateTitle = useCallback((title:string) => {
 		// dispatch(ChangeTitle(todolist.id, title))
-		dispatch(updateTodolistTC(todolist.id, title))
+		dispatch(updateTodolistTitleTC(todolist.id, title))
 	},[dispatch, todolist.id])
 
     return <div>

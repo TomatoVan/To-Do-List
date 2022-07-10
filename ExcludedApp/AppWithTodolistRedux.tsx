@@ -1,13 +1,13 @@
 import React from 'react';
-import '../App.css';
+import '../src/App.css';
 import {Todolist} from './TodolistRedux';
-import {AddItemForm} from "../components/AddItemForm";
-import ButtonAppBar from "../components/ButtonAppBar";
+import {AddItemForm} from "../src/components/AddItemForm";
+import ButtonAppBar from "../src/components/ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
-import {AddTodolist, ChangeFilter, ChangeTitle, RemoveTodolist} from "../state/todolistsReducer";
-import {AddTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask} from "../state/tasksReducer";
+import {AddTodolist, ChangeFilter, ChangeTitle, RemoveTodolist} from "../src/state/todolistsReducer";
+import {AddTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask} from "../src/state/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "../state/store";
+import {AppRootState} from "../src/state/store";
 
 export type FilterValuesType = "all" | "active" | "completed";
 

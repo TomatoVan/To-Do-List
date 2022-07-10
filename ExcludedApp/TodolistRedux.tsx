@@ -1,14 +1,14 @@
 import React from 'react';
-import {FilterValuesType, TasksStateType, TasksType, TodolistsType} from '../App';
-import {AddItemForm} from "../components/AddItemForm";
-import EditableSpan from "../components/EditableSpan";
-import RemoveBtn from "../components/RemoveBtn";
+import {FilterValuesType, TasksStateType, TasksType, TodolistsType} from '../src/App';
+import {AddItemForm} from "../src/components/AddItemForm";
+import EditableSpan from "../src/components/EditableSpan";
+import RemoveBtn from "../src/components/RemoveBtn";
 import Button from "@mui/material/Button";
-import UniversalCheckbox from "../components/UniversalCheckbox";
+import UniversalCheckbox from "../src/components/UniversalCheckbox";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "../state/store";
-import {ChangeFilter, ChangeTitle, RemoveTodolist} from "../state/todolistsReducer";
-import {AddTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask} from "../state/tasksReducer";
+import {AppRootState} from "../src/state/store";
+import {ChangeFilter, ChangeTitle, RemoveTodolist} from "../src/state/todolistsReducer";
+import {AddTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask} from "../src/state/tasksReducer";
 
 
 type TaskType = {
@@ -25,6 +25,7 @@ export const Todolist = (props: PropsType) => {
 
 	const dispatch = useDispatch()
 	let todolist = useSelector<AppRootState,TodolistsType>(state => state.todolists.filter(tl => tl.id === props.id)[0])
+	// @ts-ignore
 	let tasks = useSelector<AppRootState,Array<TasksType>>(state => state.tasks[props.id])
 
 	if (todolist.filter === "active") {
@@ -44,6 +45,7 @@ export const Todolist = (props: PropsType) => {
 
 	const onChangeHandler = (tID:string, event:boolean) => dispatch(ChangeTaskStatus(tID, event, props.id))
 
+	// @ts-ignore
 	const callBackHandler = (title:string) => dispatch(AddTask(props.id,title))
 
 	const callBackHandlerForUpdateTask = (tID:string, title:string) => dispatch(ChangeTaskTitle(tID,title,props.id))
