@@ -16,13 +16,6 @@ export type TodolistDomainType = TodolistType & {
 	filter: FilterValuesType
 }
 
-//AC
-export const RemoveTodolist = (id:string) => ({type: "REMOVE-TODOLIST", payload: {id}} as const)
-export const AddTodolist = (title:string, todolistId: string) => ({type: "ADD-TODOLIST", payload:{title, todolistId}} as const)
-export const ChangeTitle = (id:string, title:string) => ({type: "CHANGE-TODOLIST-TITLE", payload:{id, title}} as const)
-export const ChangeFilter = (id:string, filter:FilterValuesType) => ({type: "CHANGE-TODOLIST-FILTER", payload:{id, filter}} as const)
-export const SetTodolist = (todolists: TodolistType[]) => ({type: "SET-TODOLIST", payload:{todolists}} as const)
-
 // initial state
 const initialState:Array<TodolistDomainType> = [
 	// {id: todolistID1, title: 'What to learn', filter: 'all', addedDate: '', order: 0},
@@ -56,6 +49,13 @@ export const todolistsReducer = (state:Array<TodolistDomainType> = initialState,
 		default : return state
 	}
 }
+
+//AC
+export const RemoveTodolist = (id:string) => ({type: "REMOVE-TODOLIST", payload: {id}} as const)
+export const AddTodolist = (title:string, todolistId: string) => ({type: "ADD-TODOLIST", payload:{title, todolistId}} as const)
+export const ChangeTitle = (id:string, title:string) => ({type: "CHANGE-TODOLIST-TITLE", payload:{id, title}} as const)
+export const ChangeFilter = (id:string, filter:FilterValuesType) => ({type: "CHANGE-TODOLIST-FILTER", payload:{id, filter}} as const)
+export const SetTodolist = (todolists: TodolistType[]) => ({type: "SET-TODOLIST", payload:{todolists}} as const)
 
 //TC
 export const setTodolistsTC = (): AppThunk => (dispatch) => {
