@@ -39,7 +39,7 @@ const App = () => {
 				</Grid>
 				<Grid container spacing={3}>
 					{todolists.map(tl => {
-						return <Grid item>
+						return <Grid key={tl.id} item>
 							<Paper elevation={4} style={{padding: "10px"}}>
 							<Todolist
 								key={tl.id}

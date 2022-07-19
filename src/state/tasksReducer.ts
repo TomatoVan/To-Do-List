@@ -1,7 +1,7 @@
 import {TasksStateType} from "../App";
 import {addTodolistAcType, removeTodolistACType, SetTodolist, SetTodolistAcType} from "./todolistsReducer";
 import {Dispatch} from "redux";
-import {TaskPriorities, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelType} from "../components/api/TodolistsApi";
+import {tasksAPI, TaskStatuses, TaskType, UpdateTaskModelType} from "../components/api/TodolistsApi";
 import {AppRootStateType} from "./store";
 
 export type removeTaskACType = ReturnType<typeof RemoveTask>
@@ -116,7 +116,7 @@ export const updateTaskStatusTC = (todolistId:string, taskId: string, status:Tas
 				priority: task.priority,
 				description: task.description,
 				deadline: task.deadline,
-				status: status
+				status: status,
 			}
 
 			tasksAPI.updateTasks(todolistId, taskId, model)
