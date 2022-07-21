@@ -1,6 +1,6 @@
 import {AddTodolist, ChangeFilter, ChangeTitle, FilterValuesType, RemoveTodolist, TodolistDomainType, todolistsReducer} from '../components/Todolists/todolistsReducer';
 import {v1} from 'uuid';
-import {TodolistType} from "../components/api/TodolistsApi";
+import {TodolistType} from "../api/TodolistsApi";
 
 let todolistId1:string
 let todolistId2:string

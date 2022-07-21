@@ -1,4 +1,4 @@
-import {todolistsAPI, TodolistType} from "../api/TodolistsApi";
+import {todolistsAPI, TodolistType} from "../../api/TodolistsApi";
 import {AppThunk} from "../../state/store";
 
 //types

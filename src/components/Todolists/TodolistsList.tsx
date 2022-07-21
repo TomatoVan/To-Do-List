@@ -3,7 +3,7 @@ import {AddTodoBtn} from "../../features/addTodoBtn/AddTodoBtn";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../state/store";
 import {createTodolistTC, setTodolistsTC, TodolistDomainType} from "./todolistsReducer";
-import {TaskType} from "../api/TodolistsApi";
+import {TaskType} from "../../api/TodolistsApi";
 import {Grid, Paper} from "@mui/material";
 import {Todolist} from "./Todolist";
 

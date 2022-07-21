@@ -1,6 +1,6 @@
 
 import {AddTodolistAcType, RemoveTodolistACType, SetTodolistAcType} from "../Todolists/todolistsReducer";
-import {tasksAPI, TaskStatuses, TaskType, UpdateTaskModelType} from "../api/TodolistsApi";
+import {tasksAPI, TaskStatuses, TaskType, UpdateTaskModelType} from "../../api/TodolistsApi";
 import {AppThunk} from "../../state/store";
 import {TasksStateType} from "../Todolists/TodolistsList";
 //types

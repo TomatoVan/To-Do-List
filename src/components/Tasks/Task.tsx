@@ -4,8 +4,8 @@ import EditableSpan from "../../features/editableSpan/EditableSpan";
 import RemoveTodoBtn from "../../features/removeTodoBtn/RemoveTodoBtn";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../state/store";
-import {ChangeTaskTitle, deleteTaskTC, updateTaskStatusTC, updateTaskTitleTC} from "./tasksReducer";
-import {TaskStatuses, TaskType, UpdateTaskModelType} from "../api/TodolistsApi";
+import {deleteTaskTC, updateTaskStatusTC, updateTaskTitleTC} from "./tasksReducer";
+import {TaskStatuses, TaskType} from "../../api/TodolistsApi";
 
 type TaskPropsType = {
 	todolistId:string
