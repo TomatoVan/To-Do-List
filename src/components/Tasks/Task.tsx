@@ -1,11 +1,11 @@
 import React, {useCallback} from 'react';
-import UniversalCheckbox from "../components/UniversalCheckbox";
-import EditableSpan from "../components/EditableSpan";
-import RemoveBtn from "../components/RemoveBtn";
+import UniversalCheckbox from "../../features/universalCheckbox/UniversalCheckbox";
+import EditableSpan from "../../features/editableSpan/EditableSpan";
+import RemoveTodoBtn from "../../features/removeTodoBtn/RemoveTodoBtn";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./store";
+import {AppRootStateType} from "../../state/store";
 import {ChangeTaskTitle, deleteTaskTC, updateTaskStatusTC, updateTaskTitleTC} from "./tasksReducer";
-import {TaskStatuses, TaskType, UpdateTaskModelType} from "../components/api/TodolistsApi";
+import {TaskStatuses, TaskType, UpdateTaskModelType} from "../api/TodolistsApi";
 
 type TaskPropsType = {
 	todolistId:string
@@ -38,7 +38,7 @@ const Task:React.FC<TaskPropsType> = React.memo(({ todolistId, taskId }) => {
 		<li key={taskId} className={task.status === TaskStatuses.Completed ? "is-done" : ""}>
 			<UniversalCheckbox changeBox={(e) => changeStatus(e)} checked={task.status}/>
 			<EditableSpan titleFromProps = {task.title} changeTask={(title)=> changeTask(title)}/>
-			<RemoveBtn name={'x'} callBack={() =>removeTask()}/>
+			<RemoveTodoBtn name={'x'} callBack={() =>removeTask()}/>
 		</li>
 	)
 });

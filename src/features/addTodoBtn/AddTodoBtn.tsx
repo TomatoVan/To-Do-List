@@ -5,7 +5,7 @@ type PropsType = {
 	callBackAddTask: (title: string) => void
 }
 
-export const AddItemForm:React.FC<PropsType> = React.memo(({callBackAddTask}) => {
+export const AddTodoBtn:React.FC<PropsType> = React.memo(({callBackAddTask}) => {
 
 
 	let [title, setTitle] = useState("")

@@ -7,7 +7,7 @@ type RemoveBtnPropsType = {
 	callBack:() => void
 }
 
-const RemoveBtn:React.FC<RemoveBtnPropsType> = React.memo(({callBack}) => {
+const RemoveTodoBtn:React.FC<RemoveBtnPropsType> = React.memo(({callBack}) => {
 
 	const onClickHandler = useCallback(() => {
 		callBack()
@@ -20,4 +20,4 @@ const RemoveBtn:React.FC<RemoveBtnPropsType> = React.memo(({callBack}) => {
 	);
 });
 
-export default RemoveBtn;
+export default RemoveTodoBtn;

@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect} from 'react';
-import {AddItemForm} from "./components/AddItemForm";
+import {AddTodoBtn} from "../../features/addTodoBtn/AddTodoBtn";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
-import {createTodolistTC, setTodolistsTC, TodolistDomainType} from "./state/todolistsReducer";
-import {TaskType} from "./components/api/TodolistsApi";
+import {AppRootStateType} from "../../state/store";
+import {createTodolistTC, setTodolistsTC, TodolistDomainType} from "./todolistsReducer";
+import {TaskType} from "../api/TodolistsApi";
 import {Grid, Paper} from "@mui/material";
 import {Todolist} from "./Todolist";
 
@@ -28,7 +28,7 @@ export const TodolistsList =  () => {
 
     return<>
 		<Grid container  style={{padding: "20px"}}>
-			<AddItemForm callBackAddTask={addTodolist} />
+			<AddTodoBtn callBackAddTask={addTodolist} />
 		</Grid>
 		<Grid container spacing={3}>
 			{todolists.map(tl => {

@@ -1,5 +1,5 @@
-import {todolistsAPI, TodolistType} from "../components/api/TodolistsApi";
-import {AppThunk} from "./store";
+import {todolistsAPI, TodolistType} from "../api/TodolistsApi";
+import {AppThunk} from "../../state/store";
 
 //types
 export type RemoveTodolistACType = ReturnType<typeof RemoveTodolist>

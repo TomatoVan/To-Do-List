@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useCallback} from 'react';
 import Checkbox from "@mui/material/Checkbox";
-import {TaskStatuses} from "./api/TodolistsApi";
+import {TaskStatuses} from "../../components/api/TodolistsApi";
 
 type CheckboxesType = {
 	checked:TaskStatuses,

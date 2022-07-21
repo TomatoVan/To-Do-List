@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect} from 'react';
-import {AddItemForm} from "./components/AddItemForm";
-import EditableSpan from "./components/EditableSpan";
-import RemoveBtn from "./components/RemoveBtn";
+import {AddTodoBtn} from "../../features/addTodoBtn/AddTodoBtn";
+import EditableSpan from "../../features/editableSpan/EditableSpan";
+import RemoveTodoBtn from "../../features/removeTodoBtn/RemoveTodoBtn";
 import Button from "@mui/material/Button";
-import Task from "./state/Task";
+import Task from "../Tasks/Task";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
-import {ChangeFilter, deleteTodolistTC, TodolistDomainType, updateTodolistTitleTC} from "./state/todolistsReducer";
-import {createTaskTC, fetchTasksTC} from "./state/tasksReducer";
-import {TaskStatuses, TaskType} from "./components/api/TodolistsApi";
+import {AppRootStateType} from "../../state/store";
+import {ChangeFilter, deleteTodolistTC, TodolistDomainType, updateTodolistTitleTC} from "./todolistsReducer";
+import {createTaskTC, fetchTasksTC} from "../Tasks/tasksReducer";
+import {TaskStatuses, TaskType} from "../api/TodolistsApi";
 
 type TodolistPropsType = {
 	id:string
@@ -57,9 +57,9 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
     return <div>
         <h3>
 			<EditableSpan titleFromProps = {todolist.title} changeTask={callBackHandlerForUpdateTitle}/>
-			<RemoveBtn name={'x'} callBack={removeTodolistCallBack}/>
+			<RemoveTodoBtn name={'x'} callBack={removeTodolistCallBack}/>
 		</h3>
-		<AddItemForm callBackAddTask={callBackHandler}/>
+		<AddTodoBtn callBackAddTask={callBackHandler}/>
         <ul>
             {
 				tasks.map(t => {
