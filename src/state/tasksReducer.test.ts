@@ -1,7 +1,8 @@
 import {AddTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask, tasksReducer} from "./tasksReducer";
-import {TasksStateType} from "../App";
 import {AddTodolist, RemoveTodolist, TodolistDomainType, todolistsReducer} from "./todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../components/api/TodolistsApi";
+import {TasksStateType} from "../TodolistsList";
+import {v1} from "uuid";
 
 let startState: TasksStateType
 
@@ -67,7 +68,7 @@ test('title of task should be changed', () => {
 });
 
 test('new array should be added when new todolist is added', () => {
-	const endState = tasksReducer(startState, AddTodolist("new todolist"))
+	const endState = tasksReducer(startState, AddTodolist("new todolist", v1()))
 
 	const keys = Object.keys(endState);
 	const newKey = keys.find(k => k !== "todolistId1" && k !== "todolistId2");
@@ -83,7 +84,7 @@ test('ids should be equals', () => {
 	const startTasksState: TasksStateType = {};
 	const startTodolistsState: Array<TodolistDomainType> = [];
 
-	const action = AddTodolist("new todolist");
+	const action = AddTodolist("new todolist", v1());
 
 	const endTasksState = tasksReducer(startTasksState, action)
 	const endTodolistsState = todolistsReducer(startTodolistsState, action)

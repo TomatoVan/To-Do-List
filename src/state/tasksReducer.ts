@@ -1,7 +1,8 @@
-import {TasksStateType} from "../App";
+
 import {AddTodolistAcType, RemoveTodolistACType, SetTodolistAcType} from "./todolistsReducer";
 import {tasksAPI, TaskStatuses, TaskType, UpdateTaskModelType} from "../components/api/TodolistsApi";
 import {AppThunk} from "./store";
+import {TasksStateType} from "../TodolistsList";
 //types
 export type removeTaskACType = ReturnType<typeof RemoveTask>
 export type addTaskACACType = ReturnType<typeof AddTask>
