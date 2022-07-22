@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import ButtonAppBar from "../buttonAppBar/ButtonAppBar";
+import ButtonAppBar from "../components/buttonAppBar/ButtonAppBar";
 import Container from "@mui/material/Container";
 import LinearProgress from "@mui/material/LinearProgress";
-import {TodolistsList} from "../../features/Todolists/TodolistsList";
+import {TodolistsList} from "../features/Todolists/TodolistsList";
 import {useAppSelector} from "./store";
-import {ErrorSnackbar} from "../ErrorSnackbar/ErrorSnackbar";
+import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 
 const App = () => {

@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import {AddItemBtn} from "../../components/addItemBtn/AddItemBtn";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../components/app/store";
+import {AppRootStateType} from "../../app/store";
 import {createTodolistTC, setTodolistsTC, TodolistDomainType} from "./todolistsReducer";
 import {TaskType} from "../../api/TodolistsApi";
 import {Grid, Paper} from "@mui/material";

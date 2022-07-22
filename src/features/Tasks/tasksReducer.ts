@@ -1,9 +1,10 @@
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistACType} from "../Todolists/todolistsReducer";
 import {ResultCode, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelType} from "../../api/TodolistsApi";
-import {AppThunk} from "../../components/app/store";
+import {AppThunk} from "../../app/store";
 import {TasksStateType} from "../Todolists/TodolistsList";
-import {setAppError, setAppStatus} from "../../components/app/appReducer";
+import {setAppStatus} from "../../app/appReducer";
 import {AxiosError} from "axios";
+import {handleAppError, handleNetworkError} from "../../utils/error-utils";
 
 //types
 export type removeTaskACType = ReturnType<typeof RemoveTask>
@@ -89,8 +90,7 @@ export const fetchTasksTC = (todolistId:string): AppThunk => (dispatch) => {
 			dispatch(setAppStatus('succeeded'))
 		})
 		.catch((err: AxiosError) => {
-			dispatch(setAppError(err.message))
-			dispatch(setAppStatus('failed'))
+			handleNetworkError(dispatch, err.message)
 		})
 	}
 
@@ -105,14 +105,12 @@ export const createTaskTC = (todolistId:string, title: string): AppThunk => (dis
 				dispatch(AddTask(task))
 				dispatch(setAppStatus('succeeded'))
 			} else {
-				dispatch(setAppError(res.data.messages[0]))
-				dispatch(setAppStatus('failed'))
+				handleAppError(dispatch, res.data)
 			}
 
 		})
 		.catch((err: AxiosError) => {
-			dispatch(setAppError(err.message))
-			dispatch(setAppStatus('failed'))
+			handleNetworkError(dispatch, err.message)
 		})
 	}
 
@@ -126,14 +124,12 @@ export const deleteTaskTC = (todolistId:string, taskId: string): AppThunk => (di
 				dispatch(RemoveTask(todolistId, taskId))
 				dispatch(setAppStatus('succeeded'))
 			} else {
-				dispatch(setAppError(res.data.messages[0]))
-				dispatch(setAppStatus('failed'))
+				handleAppError(dispatch, res.data)
 			}
 
 		})
 		.catch((err: AxiosError) => {
-			dispatch(setAppError(err.message))
-			dispatch(setAppStatus('failed'))
+			handleNetworkError(dispatch, err.message)
 		})
 	}
 
@@ -160,14 +156,12 @@ export const updateTaskStatusTC = (todolistId:string, taskId: string, status:Tas
 						dispatch(ChangeTaskStatus(todolistId, status, taskId))
 						dispatch(setAppStatus('succeeded'))
 					} else {
-						dispatch(setAppError(res.data.messages[0]))
-						dispatch(setAppStatus('failed'))
+						handleAppError(dispatch, res.data)
 					}
 
 				})
 				.catch((err: AxiosError) => {
-					dispatch(setAppError(err.message))
-					dispatch(setAppStatus('failed'))
+					handleNetworkError(dispatch, err.message)
 				})
 		}
 }
@@ -195,14 +189,12 @@ export const updateTaskTitleTC = (todolistId:string, taskId: string, title:strin
 					dispatch(ChangeTaskTitle(todolistId, taskId, title))
 					dispatch(setAppStatus('succeeded'))
 				} else {
-					dispatch(setAppError(res.data.messages[0]))
-					dispatch(setAppStatus('failed'))
+					handleAppError(dispatch, res.data)
 				}
 
 			})
 			.catch((err: AxiosError) => {
-				dispatch(setAppError(err.message))
-				dispatch(setAppStatus('failed'))
+				handleNetworkError(dispatch, err.message)
 			})
 	}
 }

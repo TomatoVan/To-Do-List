@@ -3,7 +3,7 @@ import UniversalCheckbox from "../../components/universalCheckbox/UniversalCheck
 import EditableSpan from "../../components/editableSpan/EditableSpan";
 import RemoveItemBtn from "../../components/removeItemBtn/RemoveItemBtn";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../components/app/store";
+import {AppRootStateType} from "../../app/store";
 import {deleteTaskTC, updateTaskStatusTC, updateTaskTitleTC} from "./tasksReducer";
 import {TaskStatuses, TaskType} from "../../api/TodolistsApi";
 

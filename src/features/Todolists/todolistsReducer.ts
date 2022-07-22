@@ -1,7 +1,8 @@
 import {ResultCode, todolistsAPI, TodolistType} from "../../api/TodolistsApi";
-import {AppThunk} from "../../components/app/store";
-import {RequestStatusType, setAppError, setAppStatus} from "../../components/app/appReducer";
+import {AppThunk} from "../../app/store";
+import {RequestStatusType, setAppStatus} from "../../app/appReducer";
 import {AxiosError} from "axios";
+import {handleAppError, handleNetworkError} from "../../utils/error-utils";
 
 //types
 export type RemoveTodolistACType = ReturnType<typeof RemoveTodolist>
@@ -72,8 +73,7 @@ export const setTodolistsTC = (): AppThunk => (dispatch) => {
 				dispatch(setAppStatus('succeeded'))
 			})
 			.catch((err: AxiosError) => {
-				dispatch(setAppError(err.message))
-				dispatch(setAppStatus('failed'))
+				handleNetworkError(dispatch, err.message)
 			})
 		}
 
@@ -87,14 +87,12 @@ export const createTodolistTC = (title: string): AppThunk  => (dispatch) => {
 					dispatch(AddTodolist(title, res.data.data.item.id))
 					dispatch(setAppStatus('succeeded'))
 				} else {
-					dispatch(setAppError(res.data.messages[0]))
-					dispatch(setAppStatus('failed'))
+					handleAppError(dispatch, res.data)
 				}
 
 			})
 			.catch((err: AxiosError) => {
-				dispatch(setAppError(err.message))
-				dispatch(setAppStatus('failed'))
+				handleNetworkError(dispatch, err.message)
 			})
 		}
 
@@ -108,13 +106,11 @@ export const deleteTodolistTC = (todolistId: string): AppThunk  => (dispatch) =>
 				dispatch(RemoveTodolist(todolistId))
 				dispatch(setAppStatus('succeeded'))
 			} else {
-				dispatch(setAppError(res.data.messages[0]))
-				dispatch(setAppStatus('failed'))
+				handleAppError(dispatch, res.data)
 			}
 		})
 		.catch((err: AxiosError) => {
-			dispatch(setAppError(err.message))
-			dispatch(setAppStatus('failed'))
+			handleNetworkError(dispatch, err.message)
 		})
 }
 
@@ -127,13 +123,11 @@ export const updateTodolistTitleTC = (todolistId: string, title: string): AppThu
 				dispatch(ChangeTodolistTitle(todolistId, title))
 				dispatch(setAppStatus('succeeded'))
 			} else {
-				dispatch(setAppError(res.data.messages[0]))
-				dispatch(setAppStatus('failed'))
+				handleAppError(dispatch, res.data)
 			}
 
 		})
 		.catch((err: AxiosError) => {
-			dispatch(setAppError(err.message))
-			dispatch(setAppStatus('failed'))
+			handleNetworkError(dispatch, err.message)
 		})
 }
