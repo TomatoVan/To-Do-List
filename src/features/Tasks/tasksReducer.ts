@@ -3,6 +3,7 @@ import {tasksAPI, TaskStatuses, TaskType, UpdateTaskModelType} from "../../api/T
 import {AppThunk} from "../../components/app/store";
 import {TasksStateType} from "../Todolists/TodolistsList";
 import {setAppError, setAppStatus} from "../../components/app/appReducer";
+import {AxiosError} from "axios";
 
 //types
 export type removeTaskACType = ReturnType<typeof RemoveTask>
@@ -87,6 +88,10 @@ export const fetchTasksTC = (todolistId:string): AppThunk => (dispatch) => {
 			dispatch(SetTasks(todolistId, res.data.items))
 			dispatch(setAppStatus('succeeded'))
 		})
+		.catch((err: AxiosError) => {
+			dispatch(setAppError(err.message))
+			dispatch(setAppStatus('failed'))
+		})
 	}
 
 
@@ -105,6 +110,10 @@ export const createTaskTC = (todolistId:string, title: string): AppThunk => (dis
 			}
 
 		})
+		.catch((err: AxiosError) => {
+			dispatch(setAppError(err.message))
+			dispatch(setAppStatus('failed'))
+		})
 	}
 
 
@@ -121,6 +130,10 @@ export const deleteTaskTC = (todolistId:string, taskId: string): AppThunk => (di
 				dispatch(setAppStatus('failed'))
 			}
 
+		})
+		.catch((err: AxiosError) => {
+			dispatch(setAppError(err.message))
+			dispatch(setAppStatus('failed'))
 		})
 	}
 
@@ -152,6 +165,10 @@ export const updateTaskStatusTC = (todolistId:string, taskId: string, status:Tas
 					}
 
 				})
+				.catch((err: AxiosError) => {
+					dispatch(setAppError(err.message))
+					dispatch(setAppStatus('failed'))
+				})
 		}
 }
 
@@ -182,6 +199,10 @@ export const updateTaskTitleTC = (todolistId:string, taskId: string, title:strin
 					dispatch(setAppStatus('failed'))
 				}
 
+			})
+			.catch((err: AxiosError) => {
+				dispatch(setAppError(err.message))
+				dispatch(setAppStatus('failed'))
 			})
 	}
 }
