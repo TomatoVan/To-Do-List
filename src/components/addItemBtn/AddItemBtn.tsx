@@ -1,11 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {Button, TextField} from "@material-ui/core";
+import {RequestStatusType} from "../app/appReducer";
 
 type PropsType = {
-	callBackAddTask: (title: string) => void
+	callBackAddTask: (title: string) => void,
+	entityStatus? : RequestStatusType
 }
 
-export const AddTodoBtn:React.FC<PropsType> = React.memo(({callBackAddTask}) => {
+export const AddItemBtn:React.FC<PropsType> = React.memo(({callBackAddTask, entityStatus}) => {
 
 
 	let [title, setTitle] = useState("")
@@ -41,9 +43,10 @@ export const AddTodoBtn:React.FC<PropsType> = React.memo(({callBackAddTask}) => 
 					   onChange={onChangeHandler}
 					   onKeyPress={onKeyPressHandler}
 					   className={error ? "error" : ""}
+					   disabled={entityStatus === 'loading'}
 			/>
 
-			<Button variant = "contained" color="primary" onClick={addTask} style={{maxWidth: '38px', maxHeight:'38px', minWidth:'38px', minHeight:'38px' }} >+</Button>
+			<Button variant = "contained" color="primary" onClick={addTask} disabled={entityStatus === 'loading'} style={{maxWidth: '38px', maxHeight:'38px', minWidth:'38px', minHeight:'38px' }} >+</Button>
 		</div>
 	);
 })

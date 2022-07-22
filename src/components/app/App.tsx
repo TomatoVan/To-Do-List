@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-import ButtonAppBar from "../../features/buttonAppBar/ButtonAppBar";
+import ButtonAppBar from "../buttonAppBar/ButtonAppBar";
 import Container from "@mui/material/Container";
 import LinearProgress from "@mui/material/LinearProgress";
-import {TodolistsList} from "../Todolists/TodolistsList";
-import {useAppSelector} from "../../state/store";
+import {TodolistsList} from "../../features/Todolists/TodolistsList";
+import {useAppSelector} from "./store";
+import {ErrorSnackbar} from "../ErrorSnackbar/ErrorSnackbar";
 
 
 const App = () => {
@@ -18,6 +19,8 @@ const App = () => {
 			<Container fixed >
 				<TodolistsList/>
 			</Container>
+
+			<ErrorSnackbar/>
 		</div>
 	);
 }

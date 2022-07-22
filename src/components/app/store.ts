@@ -1,9 +1,9 @@
 import {applyMiddleware, combineReducers} from "redux";
-import {TodolistsActionsType, todolistsReducer} from "../components/Todolists/todolistsReducer"
-import {TaskActionsType, tasksReducer} from "../components/Tasks/tasksReducer"
+import {TodolistsActionsType, todolistsReducer} from "../../features/Todolists/todolistsReducer"
+import {TaskActionsType, tasksReducer} from "../../features/Tasks/tasksReducer"
 import { legacy_createStore as createStore} from 'redux'
 import thunk, {ThunkAction} from 'redux-thunk'
-import {appReducer} from "../components/app/app-reducer";
+import {AppActionsType, appReducer} from "./appReducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 
 const rootReducer = combineReducers({
@@ -14,9 +14,9 @@ const rootReducer = combineReducers({
 //state typification
 export type AppRootStateType = ReturnType<typeof rootReducer>
 //all reducers types
-export type AppActionsType = TaskActionsType | TodolistsActionsType
+export type AllAppActionsType = TaskActionsType | TodolistsActionsType | AppActionsType
 //TC typification
-export type AppThunk<ReturnType = void> = ThunkAction<void, AppRootStateType, unknown, AppActionsType>
+export type AppThunk<ReturnType = void> = ThunkAction<void, AppRootStateType, unknown, AllAppActionsType>
 //useSelector for every typification
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 

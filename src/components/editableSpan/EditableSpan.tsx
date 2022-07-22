@@ -3,7 +3,8 @@ import s from './EditableSpan.module.css'
 
 type EditableSpanPropsType = {
 	titleFromProps:string
-	changeTask:(title:string) => void
+	changeTask:(title:string) => void,
+
 }
 
 const EditableSpan:React.FC<EditableSpanPropsType> = React.memo(({titleFromProps, changeTask}) => {

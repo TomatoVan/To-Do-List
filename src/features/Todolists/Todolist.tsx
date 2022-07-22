@@ -1,12 +1,12 @@
 import React, {useCallback, useEffect} from 'react';
-import {AddTodoBtn} from "../../features/addTodoBtn/AddTodoBtn";
-import EditableSpan from "../../features/editableSpan/EditableSpan";
-import RemoveTodoBtn from "../../features/removeTodoBtn/RemoveTodoBtn";
+import {AddItemBtn} from "../../components/addItemBtn/AddItemBtn";
+import EditableSpan from "../../components/editableSpan/EditableSpan";
+import RemoveItemBtn from "../../components/removeItemBtn/RemoveItemBtn";
 import Button from "@mui/material/Button";
 import Task from "../Tasks/Task";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../state/store";
-import {ChangeFilter, deleteTodolistTC, TodolistDomainType, updateTodolistTitleTC} from "./todolistsReducer";
+import {AppRootStateType} from "../../components/app/store";
+import {ChangeTodolistFilter, deleteTodolistTC, TodolistDomainType, updateTodolistTitleTC} from "./todolistsReducer";
 import {createTaskTC, fetchTasksTC} from "../Tasks/tasksReducer";
 import {TaskStatuses, TaskType} from "../../api/TodolistsApi";
 
@@ -24,11 +24,11 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 		dispatch(fetchTasksTC(todolist.id))
 	}, [dispatch, todolist.id])
 
-    const onAllClickHandler = useCallback(() => dispatch((ChangeFilter(todolist.id, "all"))),
+    const onAllClickHandler = useCallback(() => dispatch((ChangeTodolistFilter(todolist.id, "all"))),
 		[dispatch, todolist.id]);
-    const onActiveClickHandler = useCallback(() => dispatch((ChangeFilter(todolist.id, "active"))),
+    const onActiveClickHandler = useCallback(() => dispatch((ChangeTodolistFilter(todolist.id, "active"))),
 		[dispatch, todolist.id]);
-    const onCompletedClickHandler = useCallback(() => dispatch((ChangeFilter(todolist.id, "completed"))),
+    const onCompletedClickHandler = useCallback(() => dispatch((ChangeTodolistFilter(todolist.id, "completed"))),
 		[dispatch, todolist.id]);
 
 
@@ -57,13 +57,13 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
     return <div>
         <h3>
 			<EditableSpan titleFromProps = {todolist.title} changeTask={callBackHandlerForUpdateTitle}/>
-			<RemoveTodoBtn name={'x'} callBack={removeTodolistCallBack}/>
+			<RemoveItemBtn name={'x'} callBack={removeTodolistCallBack} entityStatus = {todolist.entityStatus}/>
 		</h3>
-		<AddTodoBtn callBackAddTask={callBackHandler}/>
+		<AddItemBtn callBackAddTask={callBackHandler} entityStatus = {todolist.entityStatus}/>
         <ul>
             {
 				tasks.map(t => {
-					return <Task key={t.id} taskId={t.id} todolistId={todolist.id} />
+					return <Task key={t.id} taskId={t.id} todolistId={todolist.id}  />
                 })
             }
         </ul>

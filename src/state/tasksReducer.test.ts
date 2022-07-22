@@ -1,7 +1,7 @@
-import {AddTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask, tasksReducer} from "../components/Tasks/tasksReducer";
-import {AddTodolist, RemoveTodolist, TodolistDomainType, todolistsReducer} from "../components/Todolists/todolistsReducer";
+import {AddTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask, tasksReducer} from "../features/Tasks/tasksReducer";
+import {AddTodolist, RemoveTodolist, TodolistDomainType, todolistsReducer} from "../features/Todolists/todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../api/TodolistsApi";
-import {TasksStateType} from "../components/Todolists/TodolistsList";
+import {TasksStateType} from "../features/Todolists/TodolistsList";
 import {v1} from "uuid";
 
 let startState: TasksStateType

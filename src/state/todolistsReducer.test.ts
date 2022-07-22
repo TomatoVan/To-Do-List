@@ -1,4 +1,4 @@
-import {AddTodolist, ChangeFilter, ChangeTitle, FilterValuesType, RemoveTodolist, TodolistDomainType, todolistsReducer} from '../components/Todolists/todolistsReducer';
+import {AddTodolist, ChangeTodolistFilter, ChangeTodolistTitle, FilterValuesType, RemoveTodolist, TodolistDomainType, todolistsReducer} from '../features/Todolists/todolistsReducer';
 import {v1} from 'uuid';
 import {TodolistType} from "../api/TodolistsApi";
 
@@ -35,7 +35,7 @@ test('correct todolist should be added', () => {
 test('correct todolist should change its name', () => {
 
 	let newTodolistTitle = "New Todolist";
-	const endState = todolistsReducer(startState, ChangeTitle(todolistId2, newTodolistTitle));
+	const endState = todolistsReducer(startState, ChangeTodolistTitle(todolistId2, newTodolistTitle));
 
 	expect(endState[0].title).toBe("What to learn");
 	expect(endState[1].title).toBe(newTodolistTitle);
@@ -52,7 +52,7 @@ test('correct filter of todolist should be changed', () => {
 		{id: todolistId2, title: "What to buy", filter: "all", addedDate: '', order: 0,}
 	]
 
-	const endState = todolistsReducer(startState, ChangeFilter(todolistId2, newFilter));
+	const endState = todolistsReducer(startState, ChangeTodolistFilter(todolistId2, newFilter));
 
 	expect(endState[0].filter).toBe("all");
 	expect(endState[1].filter).toBe(newFilter);
