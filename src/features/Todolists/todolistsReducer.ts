@@ -1,4 +1,4 @@
-import {todolistsAPI, TodolistType} from "../../api/TodolistsApi";
+import {ResultCode, todolistsAPI, TodolistType} from "../../api/TodolistsApi";
 import {AppThunk} from "../../components/app/store";
 import {RequestStatusType, setAppError, setAppStatus} from "../../components/app/appReducer";
 import {AxiosError} from "axios";
@@ -82,7 +82,7 @@ export const createTodolistTC = (title: string): AppThunk  => (dispatch) => {
 	dispatch(setAppStatus('loading'))
 		todolistsAPI.createTodolist(title)
 			.then(res => {
-				if(res.data.resultCode === 0) {
+				if(res.data.resultCode === ResultCode.success) {
 					console.log('post todo', res)
 					dispatch(AddTodolist(title, res.data.data.item.id))
 					dispatch(setAppStatus('succeeded'))
@@ -103,7 +103,7 @@ export const deleteTodolistTC = (todolistId: string): AppThunk  => (dispatch) =>
 	dispatch(ChangeTodolistEntityStatus(todolistId, 'loading'))
 	todolistsAPI.deleteTodolist(todolistId)
 		.then(res => {
-			if(res.data.resultCode === 0) {
+			if(res.data.resultCode === ResultCode.success) {
 				console.log('delete todo', res)
 				dispatch(RemoveTodolist(todolistId))
 				dispatch(setAppStatus('succeeded'))
@@ -122,7 +122,7 @@ export const updateTodolistTitleTC = (todolistId: string, title: string): AppThu
 	dispatch(setAppStatus('loading'))
 	todolistsAPI.updateTodolistTitle(todolistId, title)
 		.then(res => {
-			if(res.data.resultCode === 0) {
+			if(res.data.resultCode === ResultCode.success) {
 				console.log('update todo', res)
 				dispatch(ChangeTodolistTitle(todolistId, title))
 				dispatch(setAppStatus('succeeded'))

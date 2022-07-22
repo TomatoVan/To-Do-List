@@ -1,5 +1,5 @@
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistACType} from "../Todolists/todolistsReducer";
-import {tasksAPI, TaskStatuses, TaskType, UpdateTaskModelType} from "../../api/TodolistsApi";
+import {ResultCode, tasksAPI, TaskStatuses, TaskType, UpdateTaskModelType} from "../../api/TodolistsApi";
 import {AppThunk} from "../../components/app/store";
 import {TasksStateType} from "../Todolists/TodolistsList";
 import {setAppError, setAppStatus} from "../../components/app/appReducer";
@@ -99,7 +99,7 @@ export const createTaskTC = (todolistId:string, title: string): AppThunk => (dis
 	dispatch(setAppStatus('loading'))
 	tasksAPI.postTasks(todolistId, title)
 		.then(res => {
-			if(res.data.resultCode === 0) {
+			if(res.data.resultCode === ResultCode.success) {
 				console.log('post task', res)
 				let task = res.data.data.item
 				dispatch(AddTask(task))
@@ -121,7 +121,7 @@ export const deleteTaskTC = (todolistId:string, taskId: string): AppThunk => (di
 	dispatch(setAppStatus('loading'))
 	tasksAPI.deleteTask(todolistId, taskId)
 		.then(res => {
-			if(res.data.resultCode === 0) {
+			if(res.data.resultCode === ResultCode.success) {
 				console.log('delete task', res)
 				dispatch(RemoveTask(todolistId, taskId))
 				dispatch(setAppStatus('succeeded'))
@@ -155,7 +155,7 @@ export const updateTaskStatusTC = (todolistId:string, taskId: string, status:Tas
 
 			tasksAPI.updateTasks(todolistId, taskId, model)
 				.then(res => {
-					if(res.data.resultCode === 0) {
+					if(res.data.resultCode === ResultCode.success) {
 						console.log('update task', res)
 						dispatch(ChangeTaskStatus(todolistId, status, taskId))
 						dispatch(setAppStatus('succeeded'))
@@ -190,7 +190,7 @@ export const updateTaskTitleTC = (todolistId:string, taskId: string, title:strin
 
 		tasksAPI.updateTasks(todolistId, taskId, model)
 			.then(res => {
-				if(res.data.resultCode === 0) {
+				if(res.data.resultCode === ResultCode.success) {
 					console.log('update task', res)
 					dispatch(ChangeTaskTitle(todolistId, taskId, title))
 					dispatch(setAppStatus('succeeded'))

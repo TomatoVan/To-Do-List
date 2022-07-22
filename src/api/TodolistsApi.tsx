@@ -21,6 +21,11 @@ export type ResponseType<T = {}> = {
 	data: T
 }
 
+export enum ResultCode  {
+	success = 0,
+	error = 1
+}
+
 export enum TaskStatuses  {
 	New = 0,
 	InProgress = 1,
