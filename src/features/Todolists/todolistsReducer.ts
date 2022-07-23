@@ -5,12 +5,12 @@ import {AxiosError} from "axios";
 import {handleAppError, handleNetworkError} from "../../utils/error-utils";
 
 //types
-export type RemoveTodolistACType = ReturnType<typeof RemoveTodolist>
-export type AddTodolistACType = ReturnType<typeof AddTodolist>
-export type ChangeTitleACType = ReturnType<typeof ChangeTodolistTitle>
-export type ChangeFilterACType = ReturnType<typeof ChangeTodolistFilter>
-export type SetTodolistACType = ReturnType<typeof SetTodolist>
-export type ChangeEntityStatusType = ReturnType<typeof ChangeTodolistEntityStatus>
+export type RemoveTodolistACType = ReturnType<typeof removeTodolist>
+export type AddTodolistACType = ReturnType<typeof addTodolist>
+export type ChangeTitleACType = ReturnType<typeof changeTodolistTitle>
+export type ChangeFilterACType = ReturnType<typeof changeTodolistFilter>
+export type SetTodolistACType = ReturnType<typeof setTodolist>
+export type ChangeEntityStatusType = ReturnType<typeof changeTodolistEntityStatus>
 
 export type TodolistsActionsType = RemoveTodolistACType | AddTodolistACType | ChangeTitleACType | ChangeFilterACType | SetTodolistACType | ChangeEntityStatusType
 
@@ -56,12 +56,12 @@ export const todolistsReducer = (state:Array<TodolistDomainType> = initialState,
 }
 
 //AC
-export const RemoveTodolist = (id:string) => ({type: "REMOVE-TODOLIST", payload: {id}} as const)
-export const AddTodolist = (title:string, todolistId: string) => ({type: "ADD-TODOLIST", payload:{title, todolistId}} as const)
-export const ChangeTodolistTitle = (id:string, title:string) => ({type: "CHANGE-TODOLIST-TITLE", payload:{id, title}} as const)
-export const ChangeTodolistFilter = (id:string, filter:FilterValuesType) => ({type: "CHANGE-TODOLIST-FILTER", payload:{id, filter}} as const)
-export const SetTodolist = (todolists: TodolistType[]) => ({type: "SET-TODOLIST", payload:{todolists}} as const)
-export const ChangeTodolistEntityStatus  = (id: string, status: RequestStatusType) => ({type: "CHANGE-TODOLIST-ENTITY-STATUS", payload:{id, status}} as const)
+export const removeTodolist = (id:string) => ({type: "REMOVE-TODOLIST", payload: {id}} as const)
+export const addTodolist = (title:string, todolistId: string) => ({type: "ADD-TODOLIST", payload:{title, todolistId}} as const)
+export const changeTodolistTitle = (id:string, title:string) => ({type: "CHANGE-TODOLIST-TITLE", payload:{id, title}} as const)
+export const changeTodolistFilter = (id:string, filter:FilterValuesType) => ({type: "CHANGE-TODOLIST-FILTER", payload:{id, filter}} as const)
+export const setTodolist = (todolists: TodolistType[]) => ({type: "SET-TODOLIST", payload:{todolists}} as const)
+export const changeTodolistEntityStatus  = (id: string, status: RequestStatusType) => ({type: "CHANGE-TODOLIST-ENTITY-STATUS", payload:{id, status}} as const)
 
 //TC
 export const setTodolistsTC = (): AppThunk => (dispatch) => {
@@ -69,7 +69,7 @@ export const setTodolistsTC = (): AppThunk => (dispatch) => {
 		todolistsAPI.getTodolists()
 			.then(res => {
 				console.log('get todo', res)
-				dispatch(SetTodolist(res.data))
+				dispatch(setTodolist(res.data))
 				dispatch(setAppStatus('succeeded'))
 			})
 			.catch((err: AxiosError) => {
@@ -84,7 +84,7 @@ export const createTodolistTC = (title: string): AppThunk  => (dispatch) => {
 			.then(res => {
 				if(res.data.resultCode === ResultCode.success) {
 					console.log('post todo', res)
-					dispatch(AddTodolist(title, res.data.data.item.id))
+					dispatch(addTodolist(title, res.data.data.item.id))
 					dispatch(setAppStatus('succeeded'))
 				} else {
 					handleAppError(dispatch, res.data)
@@ -98,12 +98,12 @@ export const createTodolistTC = (title: string): AppThunk  => (dispatch) => {
 
 export const deleteTodolistTC = (todolistId: string): AppThunk  => (dispatch) => {
 	dispatch(setAppStatus('loading'))
-	dispatch(ChangeTodolistEntityStatus(todolistId, 'loading'))
+	dispatch(changeTodolistEntityStatus(todolistId, 'loading'))
 	todolistsAPI.deleteTodolist(todolistId)
 		.then(res => {
 			if(res.data.resultCode === ResultCode.success) {
 				console.log('delete todo', res)
-				dispatch(RemoveTodolist(todolistId))
+				dispatch(removeTodolist(todolistId))
 				dispatch(setAppStatus('succeeded'))
 			} else {
 				handleAppError(dispatch, res.data)
@@ -120,7 +120,7 @@ export const updateTodolistTitleTC = (todolistId: string, title: string): AppThu
 		.then(res => {
 			if(res.data.resultCode === ResultCode.success) {
 				console.log('update todo', res)
-				dispatch(ChangeTodolistTitle(todolistId, title))
+				dispatch(changeTodolistTitle(todolistId, title))
 				dispatch(setAppStatus('succeeded'))
 			} else {
 				handleAppError(dispatch, res.data)

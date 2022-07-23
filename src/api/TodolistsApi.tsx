@@ -71,6 +71,19 @@ export type UpdateTaskModelType = {
 	deadline: string,
 }
 
+export type LoginParamsType = {
+	email: string,
+	password: string,
+	rememberMe?: boolean,
+	captcha?: string
+}
+
+export const authAPI = {
+	login(data : LoginParamsType) {
+		return instance.post<ResponseType<{userId: number}>>(`/auth/login`, data)
+	}
+}
+
 export const todolistsAPI = {
 
 	getTodolists() {
@@ -118,52 +131,3 @@ export const tasksAPI = {
 	},
 
 }
-
-/*
-export const GetTodolists = () => {
-
-	const [state, setState] = useState<any>(null)
-	const [inputPostState, setInputPostState] = useState<any>(null)
-	const [btnPostState, setBtnPostState] = useState<any>(null)
-	const [inputDeleteState, setInputDeleteState] = useState<any>(null)
-	const [btnDeleteState, setBtnDeleteState] = useState<any>(null)
-
-	useEffect(() => {
-		todolistsAPI.getTodolists()
-			.then(data =>{
-				setState(data)
-				console.log('get', data)
-			} )
-			.catch(err => console.log(err))
-	}, [btnPostState, btnDeleteState])
-
-	useEffect(() => {
-		todolistsAPI.createTodolist(btnPostState)
-			.then(data =>{
-				console.log('post', data)
-			} )
-			.catch(err => console.log(err))
-	}, [btnPostState])
-
-	useEffect(() => {
-		todolistsAPI.deleteTodolist(btnDeleteState)
-			.then(data =>{
-				console.log('delete', data)
-			})
-			.catch(err => console.log(err))
-	}, [btnDeleteState])
-
-	return <div>
-		<div>
-			<input value={inputPostState}  onChange={(e) => (setInputPostState(e.currentTarget.value))}/>
-			<button onClick={()=>(setBtnPostState(inputPostState))}>postData</button>
-		</div>
-		<div>
-			<input value={inputDeleteState} onChange={(e) => (setInputDeleteState(e.currentTarget.value))}/>
-			<button onClick={()=>(setBtnDeleteState(inputDeleteState))}>deleteData</button>
-		</div>
-		<div>{JSON.stringify(state)}</div>
-
-	</div>
-
-}*/

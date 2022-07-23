@@ -1,5 +1,5 @@
-import {AddTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask, tasksReducer} from "../features/Tasks/tasksReducer";
-import {AddTodolist, RemoveTodolist, TodolistDomainType, todolistsReducer} from "../features/Todolists/todolistsReducer";
+import {addTask, changeTaskStatus, changeTaskTitle, removeTask, tasksReducer} from "../features/Tasks/tasksReducer";
+import {addTodolist, removeTodolist, TodolistDomainType, todolistsReducer} from "../features/Todolists/todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../api/TodolistsApi";
 import {TasksStateType} from "../features/Todolists/TodolistsList";
 import {v1} from "uuid";
@@ -23,7 +23,7 @@ beforeEach(() => {
 
 
 test('correct task should be deleted from correct array', () => {
-	const endState = tasksReducer(startState, RemoveTask("todolistId2", "2"))
+	const endState = tasksReducer(startState, removeTask("todolistId2", "2"))
 
 	expect(endState).toEqual({
 		"todolistId1": [
@@ -52,7 +52,7 @@ test('correct task should be deleted from correct array', () => {
 
 
 test('status of specified task should be changed', () => {
-	const endState = tasksReducer(startState, ChangeTaskStatus("todolistId2", TaskStatuses.New, "2"))
+	const endState = tasksReducer(startState, changeTaskStatus("todolistId2", TaskStatuses.New, "2"))
 
 	expect(endState["todolistId2"][1].status).toBe(TaskStatuses.New);
 	expect(endState["todolistId1"][1].status).toBe(TaskStatuses.Completed);
@@ -60,7 +60,7 @@ test('status of specified task should be changed', () => {
 });
 
 test('title of task should be changed', () => {
-	const endState = tasksReducer(startState, ChangeTaskTitle("todolistId2", "banana", "1"))
+	const endState = tasksReducer(startState, changeTaskTitle("todolistId2", "banana", "1"))
 
 	expect(endState["todolistId2"][0].title).toBe("banana");
 	expect(endState["todolistId1"][0].title).toBe("CSS");
@@ -68,7 +68,7 @@ test('title of task should be changed', () => {
 });
 
 test('new array should be added when new todolist is added', () => {
-	const endState = tasksReducer(startState, AddTodolist("new todolist", v1()))
+	const endState = tasksReducer(startState, addTodolist("new todolist", v1()))
 
 	const keys = Object.keys(endState);
 	const newKey = keys.find(k => k !== "todolistId1" && k !== "todolistId2");
@@ -84,7 +84,7 @@ test('ids should be equals', () => {
 	const startTasksState: TasksStateType = {};
 	const startTodolistsState: Array<TodolistDomainType> = [];
 
-	const action = AddTodolist("new todolist", v1());
+	const action = addTodolist("new todolist", v1());
 
 	const endTasksState = tasksReducer(startTasksState, action)
 	const endTodolistsState = todolistsReducer(startTodolistsState, action)
@@ -99,7 +99,7 @@ test('ids should be equals', () => {
 
 
 test('property with todolistId should be deleted', () => {
-	const endState = tasksReducer(startState, RemoveTodolist("todolistId2"))
+	const endState = tasksReducer(startState, removeTodolist("todolistId2"))
 
 	const keys = Object.keys(endState);
 

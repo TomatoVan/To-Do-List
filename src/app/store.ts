@@ -5,16 +5,18 @@ import { legacy_createStore as createStore} from 'redux'
 import thunk, {ThunkAction} from 'redux-thunk'
 import {AppActionsType, appReducer} from "./appReducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {AuthActionsType, authReducer} from "../features/Login/authReducer";
 
 const rootReducer = combineReducers({
 	todolists:todolistsReducer,
 	tasks:tasksReducer,
-	app: appReducer
+	app: appReducer,
+	auth : authReducer
 })
 //state typification
 export type AppRootStateType = ReturnType<typeof rootReducer>
 //all reducers types
-export type AllAppActionsType = TaskActionsType | TodolistsActionsType | AppActionsType
+export type AllAppActionsType = TaskActionsType | TodolistsActionsType | AppActionsType | AuthActionsType
 //TC typification
 export type AppThunk<ReturnType = void> = ThunkAction<void, AppRootStateType, unknown, AllAppActionsType>
 //useSelector for every typification

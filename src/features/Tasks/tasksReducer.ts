@@ -7,11 +7,11 @@ import {AxiosError} from "axios";
 import {handleAppError, handleNetworkError} from "../../utils/error-utils";
 
 //types
-export type removeTaskACType = ReturnType<typeof RemoveTask>
-export type addTaskACACType = ReturnType<typeof AddTask>
-export type changeTaskStatusACType = ReturnType<typeof ChangeTaskStatus>
-export type changeTaskTitleACType = ReturnType<typeof ChangeTaskTitle>
-export type setTasksACType = ReturnType<typeof SetTasks>
+export type removeTaskACType = ReturnType<typeof removeTask>
+export type addTaskACACType = ReturnType<typeof addTask>
+export type changeTaskStatusACType = ReturnType<typeof changeTaskStatus>
+export type changeTaskTitleACType = ReturnType<typeof changeTaskTitle>
+export type setTasksACType = ReturnType<typeof setTasks>
 
 export type TaskActionsType = removeTaskACType | addTaskACACType |changeTaskStatusACType | changeTaskTitleACType
 	| AddTodolistACType | RemoveTodolistACType | SetTodolistACType | setTasksACType
@@ -74,11 +74,11 @@ export const tasksReducer = (state: TasksStateType = initialState, action:TaskAc
 }
 
 //AC
-export const RemoveTask = (todolistId:string, id:string) => ({type: "REMOVE-TASK" , payload:{todolistId, id}} as const)
-export const AddTask = (task: TaskType) => ({type: "ADD-TASK" , payload:{task}} as const)
-export const ChangeTaskStatus = (todolistId:string, status:TaskStatuses, taskId:string) => ({type: "CHANGE-TASK-STATUS" , payload:{todolistId,status, taskId}} as const)
-export const ChangeTaskTitle = (todolistId:string,taskId:string, title:string ) => ({type: "CHANGE-TASK-TITLE" , payload:{todolistId,title, taskId}} as const)
-export const SetTasks = (todolistId:string, tasks: TaskType[]) => ({type:"SET-TASKS", payload: {todolistId, tasks}} as const)
+export const removeTask = (todolistId:string, id:string) => ({type: "REMOVE-TASK" , payload:{todolistId, id}} as const)
+export const addTask = (task: TaskType) => ({type: "ADD-TASK" , payload:{task}} as const)
+export const changeTaskStatus = (todolistId:string, status:TaskStatuses, taskId:string) => ({type: "CHANGE-TASK-STATUS" , payload:{todolistId,status, taskId}} as const)
+export const changeTaskTitle = (todolistId:string, taskId:string, title:string ) => ({type: "CHANGE-TASK-TITLE" , payload:{todolistId,title, taskId}} as const)
+export const setTasks = (todolistId:string, tasks: TaskType[]) => ({type:"SET-TASKS", payload: {todolistId, tasks}} as const)
 
 //TC
 export const fetchTasksTC = (todolistId:string): AppThunk => (dispatch) => {
@@ -86,7 +86,7 @@ export const fetchTasksTC = (todolistId:string): AppThunk => (dispatch) => {
 	tasksAPI.getTasks(todolistId)
 		.then(res => {
 			console.log('get task', res)
-			dispatch(SetTasks(todolistId, res.data.items))
+			dispatch(setTasks(todolistId, res.data.items))
 			dispatch(setAppStatus('succeeded'))
 		})
 		.catch((err: AxiosError) => {
@@ -102,7 +102,7 @@ export const createTaskTC = (todolistId:string, title: string): AppThunk => (dis
 			if(res.data.resultCode === ResultCode.success) {
 				console.log('post task', res)
 				let task = res.data.data.item
-				dispatch(AddTask(task))
+				dispatch(addTask(task))
 				dispatch(setAppStatus('succeeded'))
 			} else {
 				handleAppError(dispatch, res.data)
@@ -121,7 +121,7 @@ export const deleteTaskTC = (todolistId:string, taskId: string): AppThunk => (di
 		.then(res => {
 			if(res.data.resultCode === ResultCode.success) {
 				console.log('delete task', res)
-				dispatch(RemoveTask(todolistId, taskId))
+				dispatch(removeTask(todolistId, taskId))
 				dispatch(setAppStatus('succeeded'))
 			} else {
 				handleAppError(dispatch, res.data)
@@ -153,7 +153,7 @@ export const updateTaskStatusTC = (todolistId:string, taskId: string, status:Tas
 				.then(res => {
 					if(res.data.resultCode === ResultCode.success) {
 						console.log('update task', res)
-						dispatch(ChangeTaskStatus(todolistId, status, taskId))
+						dispatch(changeTaskStatus(todolistId, status, taskId))
 						dispatch(setAppStatus('succeeded'))
 					} else {
 						handleAppError(dispatch, res.data)
@@ -186,7 +186,7 @@ export const updateTaskTitleTC = (todolistId:string, taskId: string, title:strin
 			.then(res => {
 				if(res.data.resultCode === ResultCode.success) {
 					console.log('update task', res)
-					dispatch(ChangeTaskTitle(todolistId, taskId, title))
+					dispatch(changeTaskTitle(todolistId, taskId, title))
 					dispatch(setAppStatus('succeeded'))
 				} else {
 					handleAppError(dispatch, res.data)
