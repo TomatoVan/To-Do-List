@@ -78,10 +78,22 @@ export type LoginParamsType = {
 	captcha?: string
 }
 
+export type MeResponseType = {
+	id: number,
+	email: string,
+	login:string,
+}
+
 export const authAPI = {
+	me() {
+		return instance.get<ResponseType<MeResponseType>>(`/auth/me`)
+	},
 	login(data : LoginParamsType) {
 		return instance.post<ResponseType<{userId: number}>>(`/auth/login`, data)
-	}
+	},
+	logout() {
+		return instance.delete<ResponseType>(`/auth/login`)
+	},
 }
 
 export const todolistsAPI = {

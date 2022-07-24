@@ -8,14 +8,20 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useFormik} from "formik";
+import {useDispatch} from "react-redux";
+import {loginTC} from "./authReducer";
+import {useAppSelector} from "../../app/store";
+import {Navigate} from "react-router-dom";
+
+type FormikErrorType = {
+	email?: string
+	password?: string
+	rememberMe?: boolean
+}
 
 export const Login = () => {
-
-	type FormikErrorType = {
-		email?: string
-		password?: string
-		rememberMe?: boolean
-	}
+	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+	const dispatch = useDispatch()
 
 	const formik = useFormik({
 		initialValues: {
@@ -38,10 +44,14 @@ export const Login = () => {
 			return errors
 		},
 		onSubmit: values => {
-			alert(JSON.stringify(values));
+			dispatch(loginTC(values))
 			formik.resetForm()
 		},
 	})
+
+	if (isLoggedIn) {
+		return <Navigate to="/To-Do-List"/>
+	}
 
 	return <Grid container justifyContent={'center'}>
 		<Grid item justifyContent={'center'}>
@@ -49,7 +59,8 @@ export const Login = () => {
 				<FormControl>
 					<FormLabel>
 						<p>To log in get registered
-							<a href={'https://social-network.samuraijs.com/'} target={'_blank'}>here</a>
+							<br/>
+							<a href={'https://social-network.samuraijs.com/'} target={'_blank'}  rel="noopener noreferrer">here</a>
 						</p>
 						<p>or use common test account credentials:</p>
 						<p>Email: free@samuraijs.com</p>

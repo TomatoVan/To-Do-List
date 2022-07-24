@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import ButtonAppBar from "../components/buttonAppBar/ButtonAppBar";
 import Container from "@mui/material/Container";
@@ -8,11 +8,28 @@ import {useAppSelector} from "./store";
 import {Login} from "../features/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {initializeApp} from "../features/Login/authReducer";
+import {useDispatch} from "react-redux";
+import {CircularProgress} from "@material-ui/core";
 
 
 const App = () => {
 
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(initializeApp())
+	}, [dispatch])
+
 	const status = useAppSelector(state => state.app.status)
+	const isInitialized = useAppSelector(state => state.auth.isInitialized)
+
+	if (!isInitialized) {
+		return <div
+			style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+			<CircularProgress/>
+		</div>
+	}
 
 	return (
 		<div className="App">
