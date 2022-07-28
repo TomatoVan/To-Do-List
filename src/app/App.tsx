@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import ButtonAppBar from "../components/buttonAppBar/ButtonAppBar";
 import Container from "@mui/material/Container";
 import LinearProgress from "@mui/material/LinearProgress";
 import {TodolistsList} from "../features/Todolists/TodolistsList";
@@ -11,6 +10,7 @@ import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {initializeApp} from "../features/Login/authReducer";
 import {useDispatch} from "react-redux";
 import {CircularProgress} from "@material-ui/core";
+import {ButtonAppBar} from "../components/buttonAppBar/ButtonAppBar";
 
 
 const App = () => {

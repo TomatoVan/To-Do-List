@@ -11,7 +11,7 @@ import {logout} from "../../features/Login/authReducer";
 import {useDispatch} from "react-redux";
 
 
-export default function ButtonAppBar() {
+export const ButtonAppBar = () => {
 
 	const dispatch = useDispatch()
 	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
