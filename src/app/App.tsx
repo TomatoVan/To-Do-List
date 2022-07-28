@@ -7,9 +7,9 @@ import {useAppDispatch, useAppSelector} from "./store";
 import {Login} from "../features/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import {initializeApp} from "../features/Login/authReducer";
 import {CircularProgress} from "@material-ui/core";
 import {ButtonAppBar} from "../components/buttonAppBar/ButtonAppBar";
+import {initializeApp} from "./appReducer";
 
 
 const App = () => {
@@ -21,7 +21,7 @@ const App = () => {
 	}, [dispatch])
 
 	const status = useAppSelector(state => state.app.status)
-	const isInitialized = useAppSelector(state => state.auth.isInitialized)
+	const isInitialized = useAppSelector(state => state.app.isInitialized)
 
 	if (!isInitialized) {
 		return <div

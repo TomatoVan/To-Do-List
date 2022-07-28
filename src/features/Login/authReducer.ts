@@ -3,64 +3,39 @@ import {AppThunk} from "../../app/store";
 import {authAPI, LoginParamsType, ResultCode} from "../../api/TodolistsApi";
 import {handleAppError, handleNetworkError} from "../../utils/error-utils";
 import {AxiosError} from "axios";
-
-// types
-type LoginACType = ReturnType<typeof login>
-type setAppIsInitializedACType = ReturnType<typeof setAppIsInitialized>
-export type AuthActionsType = LoginACType | setAppIsInitializedACType
-type InitialStateType = typeof initialState
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 //initial State
 const initialState = {
-	isLoggedIn: false,
-	isInitialized: false
+	isLoggedIn: false
 }
 
-//reducer
-export const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
-	switch (action.type) {
-		case 'login/SET-IS-LOGGED-IN':
-			return {...state, isLoggedIn: action.payload.isLoggedIn}
-		case "login/SET-IS-INITIALIZED":
-			return {...state, isInitialized: action.payload.isInitialized}
-		default:
-			return state
+const slice = createSlice({
+	//name of main reducer
+	name: 'auth',
+	initialState: initialState,
+	reducers : {
+		//AC becomes small reducers
+		login(state, action: PayloadAction<{isLoggedIn: boolean}>) {
+			state.isLoggedIn = action.payload.isLoggedIn
+		}
 	}
-}
-// AC
-export const login = (isLoggedIn: boolean) => ({type: 'login/SET-IS-LOGGED-IN', payload: {isLoggedIn}} as const)
-export const setAppIsInitialized = (isInitialized: boolean) => ({type: 'login/SET-IS-INITIALIZED', payload: {isInitialized}} as const)
+})
+
+//reducer
+export const authReducer = slice.reducer
+export const {login} = slice.actions
 
 // TC
 
-export const initializeApp = (): AppThunk => (dispatch) => {
-	dispatch(setAppStatus('loading'))
-	authAPI.me()
-		.then(res => {
-			if(res.data.resultCode === ResultCode.success) {
-				console.log('auth me data', res)
-				dispatch(login(true))
-				dispatch(setAppStatus('succeeded'))
-			} else {
-				handleAppError(dispatch, res.data)
-			}
-		})
-		.catch((err: AxiosError) => {
-			handleNetworkError(dispatch, err.message)
-		})
-		.finally(() => {
-			dispatch(setAppIsInitialized(true))
-		})
-}
-
 export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
-	dispatch(setAppStatus('loading'))
+	dispatch(setAppStatus({status: 'loading'}))
 	authAPI.login(data)
 		.then(res => {
 			if(res.data.resultCode === ResultCode.success) {
 				console.log('login data', res)
-				dispatch(login(true))
-				dispatch(setAppStatus('succeeded'))
+				dispatch(login({isLoggedIn: true}))
+				dispatch(setAppStatus({status: 'succeeded'}))
 			} else {
 				handleAppError(dispatch, res.data)
 			}
@@ -71,13 +46,13 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
 }
 
 export const logout = (): AppThunk => (dispatch) => {
-	dispatch(setAppStatus('loading'))
+	dispatch(setAppStatus({status: 'loading'}))
 	authAPI.logout()
 		.then(res => {
 			if(res.data.resultCode === ResultCode.success) {
 				console.log('logout data', res)
-				dispatch(login(false))
-				dispatch(setAppStatus('succeeded'))
+				dispatch(login({isLoggedIn: false}))
+				dispatch(setAppStatus({status: 'succeeded'}))
 			} else {
 				handleAppError(dispatch, res.data)
 			}
