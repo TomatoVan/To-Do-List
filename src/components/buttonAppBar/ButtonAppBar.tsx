@@ -6,14 +6,13 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from "@material-ui/icons/Menu";
-import {useAppSelector} from "../../app/store";
+import {useAppDispatch, useAppSelector} from "../../app/store";
 import {logout} from "../../features/Login/authReducer";
-import {useDispatch} from "react-redux";
 
 
 export const ButtonAppBar = () => {
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
 	const logOutHandler = () =>  {

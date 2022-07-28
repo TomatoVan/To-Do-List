@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import {AddItemBtn} from "../../components/addItemBtn/AddItemBtn";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType, useAppSelector} from "../../app/store";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch, useAppSelector} from "../../app/store";
 import {createTodolistTC, setTodolistsTC, TodolistDomainType} from "./todolistsReducer";
 import {TaskType} from "../../api/TodolistsApi";
 import {Grid, Paper} from "@mui/material";
@@ -14,7 +14,7 @@ export type TasksStateType = {
 
 export const TodolistsList =  () => {
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const todolists = useSelector<AppRootStateType,TodolistDomainType[]>(state => state.todolists)
 	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 

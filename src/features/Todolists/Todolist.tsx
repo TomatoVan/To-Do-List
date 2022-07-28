@@ -4,8 +4,8 @@ import EditableSpan from "../../components/editableSpan/EditableSpan";
 import RemoveItemBtn from "../../components/removeItemBtn/RemoveItemBtn";
 import Button from "@mui/material/Button";
 import Task from "../Tasks/Task";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../app/store";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {changeTodolistFilter, deleteTodolistTC, TodolistDomainType, updateTodolistTitleTC} from "./todolistsReducer";
 import {createTaskTC, fetchTasksTC} from "../Tasks/tasksReducer";
 import {TaskStatuses, TaskType} from "../../api/TodolistsApi";
@@ -16,7 +16,7 @@ type TodolistPropsType = {
 
 export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	let todolist = useSelector<AppRootStateType,TodolistDomainType>(state => state.todolists.filter(tl => tl.id === id)[0])
 	let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[id])
 

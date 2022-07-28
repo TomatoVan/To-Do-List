@@ -1,4 +1,4 @@
-import {addTask, changeTaskStatus, changeTaskTitle, removeTask, tasksReducer} from "../features/Tasks/tasksReducer";
+import {changeTaskStatus, changeTaskTitle, removeTask, tasksReducer} from "../features/Tasks/tasksReducer";
 import {addTodolist, removeTodolist, TodolistDomainType, todolistsReducer} from "../features/Todolists/todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../api/TodolistsApi";
 import {TasksStateType} from "../features/Todolists/TodolistsList";

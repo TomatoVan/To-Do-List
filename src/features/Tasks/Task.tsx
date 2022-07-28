@@ -2,8 +2,8 @@ import React, {useCallback} from 'react';
 import UniversalCheckbox from "../../components/universalCheckbox/UniversalCheckbox";
 import EditableSpan from "../../components/editableSpan/EditableSpan";
 import RemoveItemBtn from "../../components/removeItemBtn/RemoveItemBtn";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../app/store";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {deleteTaskTC, updateTaskStatusTC, updateTaskTitleTC} from "./tasksReducer";
 import {TaskStatuses, TaskType} from "../../api/TodolistsApi";
 
@@ -15,7 +15,7 @@ type TaskPropsType = {
 const Task:React.FC<TaskPropsType> = React.memo(({ todolistId, taskId }) => {
 
 	const task = useSelector<AppRootStateType,TaskType>(state => state.tasks[todolistId].filter(t => t.id === taskId)[0])
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 
 	const changeStatus = useCallback((status: TaskStatuses) => {

@@ -3,19 +3,18 @@ import './App.css';
 import Container from "@mui/material/Container";
 import LinearProgress from "@mui/material/LinearProgress";
 import {TodolistsList} from "../features/Todolists/TodolistsList";
-import {useAppSelector} from "./store";
+import {useAppDispatch, useAppSelector} from "./store";
 import {Login} from "../features/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {initializeApp} from "../features/Login/authReducer";
-import {useDispatch} from "react-redux";
 import {CircularProgress} from "@material-ui/core";
 import {ButtonAppBar} from "../components/buttonAppBar/ButtonAppBar";
 
 
 const App = () => {
 
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	useEffect(() => {
 		dispatch(initializeApp())
