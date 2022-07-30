@@ -1,5 +1,5 @@
 import {
-	addTodolist,
+	addTodolist, changeTodolistEntityStatus,
 	changeTodolistFilter,
 	changeTodolistTitle,
 	FilterValuesType,
@@ -36,7 +36,7 @@ test('correct todolist should be added', () => {
 	const endState = todolistsReducer(startState, addTodolist({title:newTodolistTitle, todolistId:v1()}))
 
 	expect(endState.length).toBe(3);
-	expect(endState[2].title).toBe(newTodolistTitle);
+	expect(endState[0].title).toBe(newTodolistTitle);
 });
 
 test('correct todolist should change its name', () => {
@@ -49,20 +49,20 @@ test('correct todolist should change its name', () => {
 });
 
 test('correct filter of todolist should be changed', () => {
-	let todolistId1 = v1();
-	let todolistId2 = v1();
 
 	let newFilter: FilterValuesType = "completed";
-
-	const startState: Array<TodolistDomainType> = [
-		{id: todolistId1, title: "What to learn", filter: "all", addedDate: '', order: 0, entityStatus: "idle"},
-		{id: todolistId2, title: "What to buy", filter: "all", addedDate: '', order: 0, entityStatus: "idle"}
-	]
-
 	const endState = todolistsReducer(startState, changeTodolistFilter({todolistId: todolistId2, filter: newFilter}));
 
 	expect(endState[0].filter).toBe("all");
 	expect(endState[1].filter).toBe(newFilter);
+});
+
+test('correct entity status of todolist should be changed', () => {
+
+	const endState = todolistsReducer(startState, changeTodolistEntityStatus({todolistId: todolistId1, status: 'succeeded'}));
+
+	expect(endState[0].entityStatus).toBe("succeeded");
+	expect(endState[1].entityStatus).toBe("idle");
 });
 
 

@@ -1,4 +1,4 @@
-import {changeTaskStatus, changeTaskTitle, removeTask, tasksReducer} from "../features/Tasks/tasksReducer";
+import {addTask, changeTaskStatus, changeTaskTitle, removeTask, tasksReducer} from "../features/Tasks/tasksReducer";
 import {addTodolist, removeTodolist, TodolistDomainType, todolistsReducer} from "../features/Todolists/todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../api/TodolistsApi";
 import {TasksStateType} from "../features/Todolists/TodolistsList";
@@ -22,33 +22,17 @@ beforeEach(() => {
 })
 
 
-test('correct task should be deleted from correct array', () => {
-	const endState = tasksReducer(startState, removeTask({todolistId:"todolistId2", taskId:"2"}))
+test('task should be added', () => {
+	const endState = tasksReducer(startState, addTask({task: { id: "4", title: "apple", status: TaskStatuses.Completed, todoListId:'todolistId2', addedDate:'', order: 0, deadline:'', startDate:'',description:'',priority:TaskPriorities.Low}}))
+		expect(endState["todolistId2"].length).toBe(4);
+		expect(endState["todolistId2"][0].title).toBe("apple");
+})
 
-	expect(endState).toEqual({
-		"todolistId1": [
-			{ id: "1", title: "CSS", status: TaskStatuses.New, todoListId:'todolistId1', addedDate:'', order: 0, deadline:'', startDate:'',description:'',priority:TaskPriorities.Low},
-			{ id: "2", title: "JS", status: TaskStatuses.Completed, todoListId:'todolistId1', addedDate:'', order: 0, deadline:'', startDate:'',description:'',priority:TaskPriorities.Low },
-			{ id: "3", title: "React", status: TaskStatuses.New, todoListId:'todolistId1', addedDate:'', order: 0, deadline:'', startDate:'',description:'',priority:TaskPriorities.Low }
-		],
-		"todolistId2": [
-			{ id: "1", title: "bread", status: TaskStatuses.New, todoListId:'todolistId2', addedDate:'', order: 0, deadline:'', startDate:'',description:'',priority:TaskPriorities.Low },
-			{ id: "2", title: "milk", status: TaskStatuses.Completed, todoListId:'todolistId2', addedDate:'', order: 0, deadline:'', startDate:'',description:'',priority:TaskPriorities.Low },
-		]
-	});
-
-});
-
-
-// test('correct task should be added to correct array', () => {
-// 	const endState = tasksReducer(startState, AddTask("todolistId2","juice" ))
-//
-// 	expect(endState["todolistId1"].length).toBe(3);
-// 	expect(endState["todolistId2"].length).toBe(4);
-// 	expect(endState["todolistId2"][0].id).toBeDefined();
-// 	expect(endState["todolistId2"][0].title).toBe("juice");
-// 	expect(endState["todolistId2"][0].status).toBe(TaskStatuses.New);
-// })
+test('task should be removed', () => {
+	const endState = tasksReducer(startState, removeTask({todolistId: "todolistId1", taskId: "1" }))
+	expect(endState["todolistId1"].length).toBe(2);
+	expect(endState["todolistId1"][0].title).toBe(startState["todolistId1"][1].title)
+})
 
 
 test('status of specified task should be changed', () => {
