@@ -1,4 +1,4 @@
-import {addTask, changeTaskStatus, changeTaskTitle, removeTask, tasksReducer} from "../features/Tasks/tasksReducer";
+import {addTask, changeTaskStatus, changeTaskTitle, removeTask, setTasks, tasksReducer} from "../features/Tasks/tasksReducer";
 import {addTodolist, removeTodolist, TodolistDomainType, todolistsReducer} from "../features/Todolists/todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../api/TodolistsApi";
 import {TasksStateType} from "../features/Todolists/TodolistsList";
@@ -92,7 +92,11 @@ test('property with todolistId should be deleted', () => {
 });
 
 
-
+test('tasks should be added then we set', () => {
+	const endState = tasksReducer({}, setTasks({todolistId:"todolistId1" ,tasks: startState["todolistId1"]	}))
+	expect(endState["todolistId1"]).toBeDefined();
+	expect(endState["todolistId1"].length).toBe(3);
+})
 
 
 

@@ -3,11 +3,12 @@ import {
 	changeTodolistFilter,
 	changeTodolistTitle,
 	FilterValuesType,
-	removeTodolist,
+	removeTodolist, setTodolist,
 	TodolistDomainType,
 	todolistsReducer
 } from '../features/Todolists/todolistsReducer';
 import {v1} from 'uuid';
+import {setTasks, tasksReducer} from "../features/Tasks/tasksReducer";
 
 let todolistId1:string
 let todolistId2:string
@@ -64,6 +65,15 @@ test('correct entity status of todolist should be changed', () => {
 	expect(endState[0].entityStatus).toBe("succeeded");
 	expect(endState[1].entityStatus).toBe("idle");
 });
+
+test('todolists should be added then we set', () => {
+	const endState = todolistsReducer([], setTodolist({todolists: startState	}))
+	expect(endState[0]).toBeDefined();
+	expect(endState[1]).toBeDefined();
+	expect(endState[0].title).toBe("What to learn");
+	expect(endState.length).toBe(2);
+})
+
 
 
 
