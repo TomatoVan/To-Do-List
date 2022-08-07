@@ -19,16 +19,16 @@ const Task:React.FC<TaskPropsType> = React.memo(({ todolistId, taskId }) => {
 
 
 	const changeStatus = useCallback((status: TaskStatuses) => {
-		dispatch(updateTaskStatusTC(todolistId, taskId, status))
+		dispatch(updateTaskStatusTC({todolistId, taskId, status}))
 
 	}, [dispatch, taskId, todolistId])
 
 	const changeTask = useCallback((title:string) => {
-		dispatch(updateTaskTitleTC(todolistId, taskId, title))
+		dispatch(updateTaskTitleTC({todolistId, taskId, title}))
 	}, [dispatch, taskId, todolistId])
 
 	const removeTask = useCallback(() => {
-		dispatch(deleteTaskTC(todolistId, taskId))
+		dispatch(deleteTaskTC({todolistId, taskId}))
 	}, [dispatch, taskId, todolistId])
 
 	return (

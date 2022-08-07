@@ -44,11 +44,11 @@ export const Todolist:React.FC<TodolistPropsType> = React.memo(({id}) => {
 	},[dispatch, todolist.id])
 
 	const callBackHandler = useCallback((title:string) => {
-		dispatch(createTaskTC(todolist.id, title))
+		dispatch(createTaskTC({todolistId: todolist.id, title}))
 	},[dispatch, todolist.id])
 
 	const callBackHandlerForUpdateTitle = useCallback((title:string) => {
-		dispatch(updateTodolistTitleTC(todolist.id, title))
+		dispatch(updateTodolistTitleTC({todolistId: todolist.id, title}))
 	},[dispatch, todolist.id])
 
     return <div>

@@ -37,7 +37,7 @@ const App = () => {
 			{status === "loading" && <LinearProgress color={"secondary"}/>}
 			<Container fixed >
 				<Routes>
-					<Route path="/To-Do-List" element={<TodolistsList/>}/>
+					<Route path="/" element={<TodolistsList/>}/>
 					<Route path="/login" element={<Login/>}/>
 					<Route path="/404" element={<h1 style={{textAlign: 'center'}}>404 page not found</h1>}/>
 					<Route path="*" element={<Navigate to="/404"/>}/>

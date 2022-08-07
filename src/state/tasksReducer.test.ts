@@ -1,8 +1,9 @@
-import {addTask, changeTaskStatus, changeTaskTitle, removeTask, setTasks, tasksReducer} from "../features/Tasks/tasksReducer";
+import {deleteTaskTC, fetchTasksTC, tasksReducer, updateTaskStatusTC, updateTaskTitleTC} from "../features/Tasks/tasksReducer";
 import {addTodolist, removeTodolist, TodolistDomainType, todolistsReducer} from "../features/Todolists/todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../api/TodolistsApi";
 import {TasksStateType} from "../features/Todolists/TodolistsList";
 import {v1} from "uuid";
+import {createTaskTC} from "../features/Tasks/tasksReducer";
 
 let startState: TasksStateType
 
@@ -23,20 +24,20 @@ beforeEach(() => {
 
 
 test('task should be added', () => {
-	const endState = tasksReducer(startState, addTask({task: { id: "4", title: "apple", status: TaskStatuses.Completed, todoListId:'todolistId2', addedDate:'', order: 0, deadline:'', startDate:'',description:'',priority:TaskPriorities.Low}}))
+	const endState = tasksReducer(startState, createTaskTC.fulfilled({task: { id: "4", title: "apple", status: TaskStatuses.Completed, todoListId:'todolistId2', addedDate:'', order: 0, deadline:'', startDate:'',description:'',priority:TaskPriorities.Low}}, '',{todolistId:'todolistId2', title: "apple"} ))
 		expect(endState["todolistId2"].length).toBe(4);
 		expect(endState["todolistId2"][0].title).toBe("apple");
 })
 
 test('task should be removed', () => {
-	const endState = tasksReducer(startState, removeTask({todolistId: "todolistId1", taskId: "1" }))
+	const endState = tasksReducer(startState, deleteTaskTC.fulfilled({todolistId: "todolistId1", taskId: "1" }, '', {todolistId: "todolistId1", taskId: "1"}))
 	expect(endState["todolistId1"].length).toBe(2);
 	expect(endState["todolistId1"][0].title).toBe(startState["todolistId1"][1].title)
 })
 
 
 test('status of specified task should be changed', () => {
-	const endState = tasksReducer(startState, changeTaskStatus({todolistId:"todolistId2", status:TaskStatuses.New,taskId: "2"}))
+	const endState = tasksReducer(startState, updateTaskStatusTC.fulfilled({todolistId:"todolistId2", status:TaskStatuses.New,taskId: "2"}, '', {todolistId:"todolistId2",taskId: "2", status:TaskStatuses.New }))
 
 	expect(endState["todolistId2"][1].status).toBe(TaskStatuses.New);
 	expect(endState["todolistId1"][1].status).toBe(TaskStatuses.Completed);
@@ -44,7 +45,7 @@ test('status of specified task should be changed', () => {
 });
 
 test('title of task should be changed', () => {
-	const endState = tasksReducer(startState, changeTaskTitle({todolistId:"todolistId2", title:"banana",taskId: "1"}))
+	const endState = tasksReducer(startState, updateTaskTitleTC.fulfilled({todolistId:"todolistId2",taskId: "1",  title:"banana"}, '', {todolistId:"todolistId2", taskId: "1", title:"banana"}))
 
 	expect(endState["todolistId2"][0].title).toBe("banana");
 	expect(endState["todolistId1"][0].title).toBe("CSS");
@@ -93,7 +94,7 @@ test('property with todolistId should be deleted', () => {
 
 
 test('tasks should be added then we set', () => {
-	const endState = tasksReducer({}, setTasks({todolistId:"todolistId1" ,tasks: startState["todolistId1"]	}))
+	const endState = tasksReducer({}, fetchTasksTC.fulfilled({todolistId:"todolistId1" ,tasks: startState["todolistId1"]	}, '', 'todolistId1'))
 	expect(endState["todolistId1"]).toBeDefined();
 	expect(endState["todolistId1"].length).toBe(3);
 })

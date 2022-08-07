@@ -1,9 +1,7 @@
-import {AppThunk} from "./store";
 import {authAPI, ResultCode} from "../api/TodolistsApi";
 import {handleAppError, handleNetworkError} from "../utils/error-utils";
-import {AxiosError} from "axios";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {login} from "../features/Login/authReducer";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -13,6 +11,26 @@ const initialState = {
 	error: null as null | string,
 	isInitialized: false
 }
+
+export const initializeApp = createAsyncThunk('app/initializeApp',
+	async (arg, thunkAPI) => {
+		thunkAPI.dispatch(setAppStatus({status: 'loading'}))
+		try {
+			const res = await authAPI.me()
+			if(res.data.resultCode === ResultCode.success) {
+				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
+				console.log('auth me data', res)
+				thunkAPI.dispatch(login({isLoggedIn: true}))
+				return
+			}else {
+				handleAppError(thunkAPI.dispatch, res.data)
+			}
+		} catch (err: any) {
+			handleNetworkError(thunkAPI.dispatch, err.message)
+		}
+	}
+)
+
 
 const slice = createSlice({
 	name: 'app',
@@ -24,35 +42,16 @@ const slice = createSlice({
 		setAppError(state, action: PayloadAction<{error: null | string}>) {
 			state.error = action.payload.error
 		},
-		setAppIsInitialized(state, action: PayloadAction<{isInitialized: boolean}>) {
-			state.isInitialized = action.payload.isInitialized
-		}
+	},
+	extraReducers: (builder) => {
+		builder.addCase(initializeApp.fulfilled, (state, action) => {
+			state.isInitialized = true
+		});
 	}
 })
 
 //reducer
 export const appReducer = slice.reducer
 
-export const {setAppStatus, setAppError, setAppIsInitialized} = slice.actions
+export const {setAppStatus, setAppError} = slice.actions
 
-//TC
-
-export const initializeApp = (): AppThunk => (dispatch) => {
-	dispatch(setAppStatus({status: 'loading'}))
-	authAPI.me()
-		.then(res => {
-			if(res.data.resultCode === ResultCode.success) {
-				console.log('auth me data', res)
-				dispatch(login({isLoggedIn: true}))
-				dispatch(setAppStatus({status:'succeeded'}))
-			} else {
-				handleAppError(dispatch, res.data)
-			}
-		})
-		.catch((err: AxiosError) => {
-			handleNetworkError(dispatch, err.message)
-		})
-		.finally(() => {
-			dispatch(setAppIsInitialized({isInitialized: true}))
-		})
-}
