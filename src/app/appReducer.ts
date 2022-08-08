@@ -1,7 +1,7 @@
-import {authAPI, ResultCode} from "../api/TodolistsApi";
-import {handleAppError, handleNetworkError} from "../utils/error-utils";
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {login} from "../features/Login/authReducer";
+import {authAPI, ResultCode} from '../api/TodolistsApi';
+import {handleAppError, handleNetworkError} from '../utils/error-utils';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {isLoggedIn} from '../features/Login/authReducer';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -20,10 +20,10 @@ export const initializeApp = createAsyncThunk('app/initializeApp',
 			if(res.data.resultCode === ResultCode.success) {
 				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
 				console.log('auth me data', res)
-				thunkAPI.dispatch(login({isLoggedIn: true}))
-				return
+				thunkAPI.dispatch(isLoggedIn({isLoggedIn: true}))
 			}else {
 				handleAppError(thunkAPI.dispatch, res.data)
+
 			}
 		} catch (err: any) {
 			handleNetworkError(thunkAPI.dispatch, err.message)

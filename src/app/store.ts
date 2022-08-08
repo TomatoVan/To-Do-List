@@ -33,6 +33,7 @@ export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelecto
 //dispatch typification
 export type ThunkDispatchType = ThunkDispatch<AppRootStateType, unknown, AllAppActionsType>;
 export const useAppDispatch = () => useDispatch<ThunkDispatchType>();
+export const useAppDispatchToolkit = () => useDispatch<typeof store.dispatch>();
 
 // @ts-ignore
 window.store = store

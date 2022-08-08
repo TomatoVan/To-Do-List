@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 import {AddItemBtn} from "../../components/addItemBtn/AddItemBtn";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../app/store";
-import {createTodolistTC, setTodolistsTC, TodolistDomainType} from "./todolistsReducer";
+import {createTodolist, setTodolists, TodolistDomainType} from "./todolistsReducer";
 import {TaskType} from "../../api/TodolistsApi";
 import {Grid, Paper} from "@mui/material";
 import {Todolist} from "./Todolist";
@@ -19,12 +19,12 @@ export const TodolistsList =  () => {
 	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
 	useEffect(() => {
-		isLoggedIn && dispatch(setTodolistsTC())
+		isLoggedIn && dispatch(setTodolists())
 	}, [dispatch, isLoggedIn])
 
 
 	const addTodolist = useCallback((title:string) => {
-		dispatch(createTodolistTC(title))
+		dispatch(createTodolist(title))
 	}, [dispatch])
 
 	if (!isLoggedIn) {
