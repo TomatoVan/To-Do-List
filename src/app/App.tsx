@@ -41,8 +41,6 @@ const App = () => {
 					<Route path="/login" element={<Login/>}/>
 					<Route path="/404" element={<h1 style={{textAlign: 'center'}}>404 page not found</h1>}/>
 					<Route path="*" element={<Navigate to="/404"/>}/>
-				{/*<TodolistsList/>
-				<Login/>*/}
 				</Routes>
 			</Container>
 		</div>
