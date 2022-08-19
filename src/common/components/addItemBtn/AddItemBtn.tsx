@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {Button, TextField} from "@material-ui/core";
-import {RequestStatusType} from "../../app/appReducer";
+import {RequestStatusType} from "../../../app/appReducer";
 
 type PropsType = {
 	callBackAddTask: (title: string) => void,

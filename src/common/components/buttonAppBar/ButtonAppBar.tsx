@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from "@material-ui/icons/Menu";
-import {useAppDispatch, useAppSelector} from "../../app/store";
-import {logout} from "../../features/Login/authReducer";
+import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {logout} from "../../../features/Login/authReducer";
 
 
 export const ButtonAppBar = () => {

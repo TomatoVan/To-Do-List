@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import {AddItemBtn} from "../../components/addItemBtn/AddItemBtn";
+import {AddItemBtn} from "../../common/components/addItemBtn/AddItemBtn";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../app/store";
 import {createTodolist, setTodolists, TodolistDomainType} from "./todolistsReducer";

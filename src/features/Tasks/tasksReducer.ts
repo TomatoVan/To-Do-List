@@ -2,7 +2,7 @@ import {ResultCode, tasksAPI, TaskStatuses, UpdateTaskModelType} from "../../api
 import {AppRootStateType} from "../../app/store";
 import {TasksStateType} from "../Todolists/TodolistsList";
 import {setAppStatus} from "../../app/appReducer";
-import {handleAppError, handleNetworkError} from "../../utils/error-utils";
+import {handleAppError, handleNetworkError} from "../../common/utils/error-utils";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {createTodolist, deleteTodolist, setTodolists} from "../Todolists/todolistsReducer";
 

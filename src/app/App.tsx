@@ -6,9 +6,9 @@ import {TodolistsList} from "../features/Todolists/TodolistsList";
 import {useAppDispatch, useAppSelector} from "./store";
 import {Login} from "../features/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {ErrorSnackbar} from "../common/components/ErrorSnackbar/ErrorSnackbar";
 import {CircularProgress} from "@material-ui/core";
-import {ButtonAppBar} from "../components/buttonAppBar/ButtonAppBar";
+import {ButtonAppBar} from "../common/components/buttonAppBar/ButtonAppBar";
 import {initializeApp} from "./appReducer";
 
 

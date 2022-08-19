@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
-import UniversalCheckbox from "../../components/universalCheckbox/UniversalCheckbox";
-import EditableSpan from "../../components/editableSpan/EditableSpan";
-import RemoveItemBtn from "../../components/removeItemBtn/RemoveItemBtn";
+import UniversalCheckbox from "../../common/components/universalCheckbox/UniversalCheckbox";
+import EditableSpan from "../../common/components/editableSpan/EditableSpan";
+import RemoveItemBtn from "../../common/components/removeItemBtn/RemoveItemBtn";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {deleteTask, updateTaskStatus, updateTaskTitle} from "./tasksReducer";

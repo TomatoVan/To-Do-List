@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
-import {RequestStatusType} from "../../app/appReducer";
+import {RequestStatusType} from "../../../app/appReducer";
 
 type RemoveBtnPropsType = {
 	name: string

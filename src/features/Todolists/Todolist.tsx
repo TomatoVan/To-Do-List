@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
-import {AddItemBtn} from "../../components/addItemBtn/AddItemBtn";
-import EditableSpan from "../../components/editableSpan/EditableSpan";
-import RemoveItemBtn from "../../components/removeItemBtn/RemoveItemBtn";
+import {AddItemBtn} from "../../common/components/addItemBtn/AddItemBtn";
+import EditableSpan from "../../common/components/editableSpan/EditableSpan";
+import RemoveItemBtn from "../../common/components/removeItemBtn/RemoveItemBtn";
 import Button from "@mui/material/Button";
 import Task from "../Tasks/Task";
 import {useSelector} from "react-redux";

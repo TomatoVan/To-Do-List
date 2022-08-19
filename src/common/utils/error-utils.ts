@@ -1,7 +1,7 @@
-import {setAppError, setAppStatus} from "../app/appReducer";
+import {setAppError, setAppStatus} from "../../app/appReducer";
 import {Dispatch} from "redux";
-import {AllAppActionsType} from "../app/store";
-import {ResponseType} from "../api/TodolistsApi";
+import {AllAppActionsType} from "../../app/store";
+import {ResponseType} from "../../api/TodolistsApi";
 
 export const handleNetworkError = (dispatch: Dispatch<AllAppActionsType>, message: string) => {
 	dispatch(setAppError({error: message}))
