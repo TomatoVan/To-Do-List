@@ -1,12 +1,14 @@
 import React, {useCallback, useEffect} from 'react';
 import {AddItemBtn} from "../../common/components/addItemBtn/AddItemBtn";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch, useAppSelector} from "../../app/store";
 import {createTodolist, setTodolists, TodolistDomainType} from "./todolistsReducer";
 import {Grid, Paper} from "@mui/material";
 import {Todolist} from "./Todolist";
 import {Navigate} from "react-router-dom";
 import {TaskType} from '../../api/tasksAPI';
+import {AppRootStateType} from '../../app/store';
+import {useAppDispatch} from '../../common/hooks/useAppDispatch';
+import {useAppSelector} from '../../common/hooks/useAppSelector';
 
 export type TasksStateType = {
 	[key: string ]:TaskType[]

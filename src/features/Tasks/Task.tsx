@@ -3,10 +3,11 @@ import UniversalCheckbox from "../../common/components/universalCheckbox/Univers
 import EditableSpan from "../../common/components/editableSpan/EditableSpan";
 import RemoveItemBtn from "../../common/components/removeItemBtn/RemoveItemBtn";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../../app/store";
+import {AppRootStateType} from "../../app/store";
 import {deleteTask, updateTaskStatus, updateTaskTitle} from "./tasksReducer";
 import {TaskType} from '../../api/tasksAPI';
 import {TaskStatuses} from '../../common/enums/taskStatuses';
+import {useAppDispatch} from '../../common/hooks/useAppDispatch';
 
 type TaskPropsType = {
 	todolistId:string

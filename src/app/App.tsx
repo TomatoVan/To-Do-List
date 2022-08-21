@@ -3,13 +3,14 @@ import './App.css';
 import Container from "@mui/material/Container";
 import LinearProgress from "@mui/material/LinearProgress";
 import {TodolistsList} from "../features/Todolists/TodolistsList";
-import {useAppDispatch, useAppSelector} from "./store";
 import {Login} from "../features/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {ErrorSnackbar} from "../common/components/ErrorSnackbar/ErrorSnackbar";
 import {CircularProgress} from "@material-ui/core";
 import {ButtonAppBar} from "../common/components/buttonAppBar/ButtonAppBar";
 import {initializeApp} from "./appReducer";
+import {useAppDispatch} from '../common/hooks/useAppDispatch';
+import {useAppSelector} from '../common/hooks/useAppSelector';
 
 
 const App = () => {

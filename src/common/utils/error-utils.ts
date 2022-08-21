@@ -1,14 +1,13 @@
-import {setAppError, setAppStatus} from "../../app/appReducer";
-import {Dispatch} from "redux";
-import {AllAppActionsType} from "../../app/store";
+import {setAppError, setAppStatus} from '../../app/appReducer';
+import {Dispatch} from 'redux';
 import {ResponseType} from '../../api/ResponceTypes';
 
-export const handleNetworkError = (dispatch: Dispatch<AllAppActionsType>, message: string) => {
+export const handleNetworkError = (dispatch: Dispatch, message: string) => {
 	dispatch(setAppError({error: message}))
 	dispatch(setAppStatus({status: 'failed'}))
 }
 
-export const handleAppError = <T>(dispatch: Dispatch<AllAppActionsType>, data: ResponseType<T> ) => {
+export const handleAppError = <T>(dispatch: Dispatch, data: ResponseType<T> ) => {
 	if(data.messages.length) {
 		dispatch(setAppError({error: data.messages[0]}))
 	} else {

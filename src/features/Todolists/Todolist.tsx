@@ -5,11 +5,12 @@ import RemoveItemBtn from "../../common/components/removeItemBtn/RemoveItemBtn";
 import Button from "@mui/material/Button";
 import Task from "../Tasks/Task";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../../app/store";
+import {AppRootStateType} from "../../app/store";
 import {changeTodolistFilter, deleteTodolist, TodolistDomainType, updateTodolistTitle} from "./todolistsReducer";
 import {createTask, fetchTasks} from "../Tasks/tasksReducer";
 import {TaskType} from '../../api/tasksAPI';
 import {TaskStatuses} from '../../common/enums/taskStatuses';
+import {useAppDispatch} from '../../common/hooks/useAppDispatch';
 
 type TodolistPropsType = {
 	id:string
