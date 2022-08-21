@@ -1,8 +1,10 @@
 import {setAppStatus} from '../../app/appReducer';
-import {authAPI, FieldErrorType, LoginParamsType, ResultCode} from '../../api/TodolistsApi';
 import {handleAppError, handleNetworkError} from '../../common/utils/error-utils';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
+import {authAPI, LoginParamsType} from '../../api/authAPI';
+import {FieldErrorType} from '../../api/ResponceTypes';
+import {ResultCode} from '../../common/enums/resultCode';
 
 //initial State
 const initialState = {

@@ -8,7 +8,8 @@ import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {changeTodolistFilter, deleteTodolist, TodolistDomainType, updateTodolistTitle} from "./todolistsReducer";
 import {createTask, fetchTasks} from "../Tasks/tasksReducer";
-import {TaskStatuses, TaskType} from "../../api/TodolistsApi";
+import {TaskType} from '../../api/tasksAPI';
+import {TaskStatuses} from '../../common/enums/taskStatuses';
 
 type TodolistPropsType = {
 	id:string

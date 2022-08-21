@@ -3,10 +3,10 @@ import {AddItemBtn} from "../../common/components/addItemBtn/AddItemBtn";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../app/store";
 import {createTodolist, setTodolists, TodolistDomainType} from "./todolistsReducer";
-import {TaskType} from "../../api/TodolistsApi";
 import {Grid, Paper} from "@mui/material";
 import {Todolist} from "./Todolist";
 import {Navigate} from "react-router-dom";
+import {TaskType} from '../../api/tasksAPI';
 
 export type TasksStateType = {
 	[key: string ]:TaskType[]

@@ -1,10 +1,12 @@
-import {ResultCode, tasksAPI, TaskStatuses, UpdateTaskModelType} from "../../api/TodolistsApi";
 import {AppRootStateType} from "../../app/store";
 import {TasksStateType} from "../Todolists/TodolistsList";
 import {setAppStatus} from "../../app/appReducer";
 import {handleAppError, handleNetworkError} from "../../common/utils/error-utils";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {createTodolist, deleteTodolist, setTodolists} from "../Todolists/todolistsReducer";
+import {tasksAPI, UpdateTaskModelType} from '../../api/tasksAPI';
+import {ResultCode} from '../../common/enums/resultCode';
+import {TaskStatuses} from '../../common/enums/taskStatuses';
 
 // initial state
 const initialState:TasksStateType = {

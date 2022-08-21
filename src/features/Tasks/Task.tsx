@@ -5,7 +5,8 @@ import RemoveItemBtn from "../../common/components/removeItemBtn/RemoveItemBtn";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {deleteTask, updateTaskStatus, updateTaskTitle} from "./tasksReducer";
-import {TaskStatuses, TaskType} from "../../api/TodolistsApi";
+import {TaskType} from '../../api/tasksAPI';
+import {TaskStatuses} from '../../common/enums/taskStatuses';
 
 type TaskPropsType = {
 	todolistId:string
