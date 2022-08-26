@@ -18,7 +18,6 @@ export const login = createAsyncThunk<undefined, LoginParamsType, {rejectValue: 
 			const res = await authAPI.login(data)
 			if(res.data.resultCode === ResultCode.success) {
 				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-				console.log('delete task', res)
 				return
 			}else {
  				handleAppError(thunkAPI.dispatch, res.data)
@@ -40,7 +39,6 @@ export const logout = createAsyncThunk('auth/logout',
 			const res = await authAPI.logout()
 			if(res.data.resultCode === ResultCode.success) {
 				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-				console.log('logout data', res)
 				return
 			}else {
 				handleAppError(thunkAPI.dispatch, res.data)

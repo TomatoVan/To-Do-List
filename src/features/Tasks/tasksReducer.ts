@@ -32,7 +32,6 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks',
 		try {
 			const res = await tasksAPI.getTasks(todolistId)
 			thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-			console.log('get task', res)
 			return {todolistId, tasks: res.data.items}
 		} catch (err: any) {
 			handleNetworkError(thunkAPI.dispatch, err.message)
@@ -48,7 +47,6 @@ export const createTask = createAsyncThunk('tasks/createTask',
 			const res = await tasksAPI.postTasks(param.todolistId, param.title)
 			if(res.data.resultCode === ResultCode.success) {
 				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-				console.log('post task', res)
 				return {task: res.data.data.item}
 			} else {
 				handleAppError(thunkAPI.dispatch, res.data)
@@ -69,7 +67,6 @@ export const deleteTask = createAsyncThunk('tasks/deleteTask',
 			const res = await tasksAPI.deleteTask(param.todolistId, param.taskId)
 			if(res.data.resultCode === ResultCode.success) {
 				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-				console.log('delete task', res)
 				return {todolistId: param.todolistId, taskId: param.taskId}
 			}else {
  					handleAppError(thunkAPI.dispatch, res.data)
@@ -102,7 +99,6 @@ export const updateTaskStatus = createAsyncThunk('tasks/updateTaskStatus',
 				const res = await tasksAPI.updateTasks(param.todolistId, param.taskId, model)
 				if (res.data.resultCode === ResultCode.success) {
 					thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-					console.log('update task', res)
 					return {todolistId: param.todolistId, taskId: param.taskId, status: param.status}
 				} else {
 					handleAppError(thunkAPI.dispatch, res.data)
@@ -135,7 +131,6 @@ export const updateTaskTitle = createAsyncThunk('tasks/updateTaskTitle',
 				const res = await tasksAPI.updateTasks(params.todolistId, params.taskId, model)
 				if (res.data.resultCode === ResultCode.success) {
 					thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-					console.log('update task', res)
 					return {todolistId: params.todolistId, taskId: params.taskId, title: params.title}
 				} else {
 					handleAppError(thunkAPI.dispatch, res.data)

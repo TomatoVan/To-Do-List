@@ -20,7 +20,6 @@ export const initializeApp = createAsyncThunk('app/initializeApp',
 			const res = await authAPI.me()
 			if(res.data.resultCode === ResultCode.success) {
 				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-				console.log('auth me data', res)
 				thunkAPI.dispatch(isLoggedIn({isLoggedIn: true}))
 			}else {
 				handleAppError(thunkAPI.dispatch, res.data)

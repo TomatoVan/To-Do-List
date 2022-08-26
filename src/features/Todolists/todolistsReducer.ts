@@ -23,7 +23,6 @@ export const  setTodolists = createAsyncThunk('todolists/setTodolists',
 		try {
 			const res = await todolistsAPI.getTodolists()
 			thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-			console.log('get todo', res)
 			return {todolists: res.data}
 		} catch (err: any) {
 			handleNetworkError(thunkAPI.dispatch, err.message)
@@ -39,7 +38,6 @@ export const  createTodolist = createAsyncThunk('todolists/createTodolist',
 			const res = await todolistsAPI.createTodolist(title)
 			if(res.data.resultCode === ResultCode.success) {
 				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-				console.log('post todo', res)
 				return {title, todolistId: res.data.data.item.id}
 			} else {
 				handleAppError(thunkAPI.dispatch, res.data)
@@ -62,7 +60,6 @@ export const  deleteTodolist = createAsyncThunk('todolists/deleteTodolist',
 			const res = await todolistsAPI.deleteTodolist(todolistId)
 			if(res.data.resultCode === ResultCode.success) {
 				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-				console.log('delete todo', res)
 				return {todolistId}
 			} else {
 				handleAppError(thunkAPI.dispatch, res.data)
@@ -84,7 +81,6 @@ export const  updateTodolistTitle = createAsyncThunk('todolists/updateTodolistTi
 			const res = await todolistsAPI.updateTodolistTitle(params.todolistId, params.title)
 			if(res.data.resultCode === ResultCode.success) {
 				thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
-				console.log('update todo', res)
 				return {todolistId: params.todolistId, title: params.title}
 			} else {
 				handleAppError(thunkAPI.dispatch, res.data)
