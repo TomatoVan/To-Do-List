@@ -3,6 +3,7 @@ import {handleAppError, handleNetworkError} from '../../common/utils/error-utils
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ResultCode} from '../../common/enums/resultCode';
 import {todolistsAPI, TodolistType} from '../../api/todolistsAPI';
+import {logout} from '../Login/authReducer';
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -131,6 +132,10 @@ const slice = createSlice({
 				state.splice(index, 1)
 				return state
 			}
+		});
+		builder.addCase(logout.fulfilled, (state, action) => {
+			state = []
+			return state
 		});
 
   }

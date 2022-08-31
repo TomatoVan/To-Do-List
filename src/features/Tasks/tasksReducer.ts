@@ -7,6 +7,7 @@ import {createTodolist, deleteTodolist, setTodolists} from "../Todolists/todolis
 import {tasksAPI, UpdateTaskModelType} from '../../api/tasksAPI';
 import {ResultCode} from '../../common/enums/resultCode';
 import {TaskStatuses} from '../../common/enums/taskStatuses';
+import {logout} from '../Login/authReducer';
 
 // initial state
 const initialState:TasksStateType = {
@@ -197,6 +198,10 @@ const slice = createSlice({
 				const taskIndex = tasks.findIndex(tl => tl.id === action.payload?.taskId)
 				tasks[taskIndex].title = action.payload.title
 			}
+		});
+		builder.addCase(logout.fulfilled, (state, action) => {
+			state = {}
+			return state
 		});
 
 	}
