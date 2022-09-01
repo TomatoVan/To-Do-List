@@ -1,4 +1,4 @@
-export enum ResultCode  {
-	success = 0,
-	error = 1
+export enum ResultCode {
+  success = 0,
+  error = 1,
 }

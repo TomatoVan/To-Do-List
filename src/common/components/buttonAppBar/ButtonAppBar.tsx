@@ -1,44 +1,42 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from "@material-ui/icons/Menu";
-import {logout} from "../../../features/Login/authReducer";
-import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {useAppSelector} from '../../hooks/useAppSelector';
+import * as React from 'react'
 
+import MenuIcon from '@material-ui/icons/Menu'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+
+import { logout } from '../../../features/Login/authReducer'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 export const ButtonAppBar = () => {
+  const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
-	const dispatch = useAppDispatch()
-	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const logOutHandler = () => {
+    dispatch(logout())
+  }
 
-	const logOutHandler = () =>  {
-		dispatch(logout())
-	}
-
-	return (
-		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static">
-				<Toolbar>
-					<IconButton
-						size="large"
-						edge="start"
-						color="inherit"
-						aria-label="menu"
-						sx={{ mr: 2 }}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						TodoLists
-					</Typography>
-					{isLoggedIn && <Button color="inherit" onClick={logOutHandler}>Logout</Button>}
-				</Toolbar>
-			</AppBar>
-		</Box>
-	);
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            TodoLists
+          </Typography>
+          {isLoggedIn && (
+            <Button color="inherit" onClick={logOutHandler}>
+              Logout
+            </Button>
+          )}
+        </Toolbar>
+      </AppBar>
+    </Box>
+  )
 }

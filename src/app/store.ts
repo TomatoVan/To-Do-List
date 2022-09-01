@@ -1,22 +1,24 @@
-import {combineReducers} from 'redux';
-import {todolistsReducer} from '../features/Todolists/todolistsReducer'
-import {tasksReducer} from '../features/Tasks/tasksReducer'
+import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import {appReducer} from './appReducer';
-import {authReducer} from '../features/Login/authReducer';
-import {configureStore} from '@reduxjs/toolkit';
+
+import { authReducer } from '../features/Login/authReducer'
+import { tasksReducer } from '../features/Tasks/tasksReducer'
+import { todolistsReducer } from '../features/Todolists/todolistsReducer'
+
+import { appReducer } from './appReducer'
 
 const rootReducer = combineReducers({
-	todolists:todolistsReducer,
-	tasks:tasksReducer,
-	app: appReducer,
-	auth : authReducer
+  todolists: todolistsReducer,
+  tasks: tasksReducer,
+  app: appReducer,
+  auth: authReducer,
 })
 
 // export const store = createStore(rootReducer, applyMiddleware(thunk))
 export const store = configureStore({
-	reducer: rootReducer,
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk)
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk),
 })
 
 //state typification
