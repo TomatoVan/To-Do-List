@@ -52,7 +52,11 @@ export const AddItemBtn: FC<PropsType> = memo(({ callBackAddTask, entityStatus }
         color="primary"
         onClick={addTask}
         disabled={entityStatus === 'loading'}
-        style={{ maxWidth: '38px', maxHeight: '38px', minWidth: '38px', minHeight: '38px' }}
+        style={{
+          minWidth: '38px',
+          minHeight: '38px',
+          marginLeft: '10px',
+        }}
       >
         +
       </Button>
