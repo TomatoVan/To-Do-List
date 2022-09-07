@@ -7,14 +7,14 @@ import {
   updateTaskStatus,
   updateTaskTitle,
   createTask,
-} from '../../features/Tasks/tasksReducer'
-import { TasksStateType } from '../../features/Todolists/TodolistsList'
+} from '../../features/tasks/tasksReducer'
+import { TasksStateType } from '../../features/todolists/TodolistsList'
 import {
   createTodolist,
+  deleteTodolist,
   TodolistDomainType,
   todolistsReducer,
-  deleteTodolist,
-} from '../../features/Todolists/todolistsReducer'
+} from '../../features/todolists/todolistsReducer'
 import { TaskPriorities } from '../enums/taskPriorities'
 import { TaskStatuses } from '../enums/taskStatuses'
 

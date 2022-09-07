@@ -2,9 +2,9 @@ import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 
-import { authReducer } from '../features/Login/authReducer'
-import { tasksReducer } from '../features/Tasks/tasksReducer'
-import { todolistsReducer } from '../features/Todolists/todolistsReducer'
+import { authReducer } from '../features/login/authReducer'
+import { tasksReducer } from '../features/tasks/tasksReducer'
+import { todolistsReducer } from '../features/todolists/todolistsReducer'
 
 import { appReducer } from './appReducer'
 

@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { authAPI } from '../api/authAPI'
 import { ResultCode } from '../common/enums/resultCode'
 import { handleAppError, handleNetworkError } from '../common/utils/error-utils'
-import { isLoggedIn } from '../features/Login/authReducer'
+import { isLoggedIn } from '../features/login/authReducer'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 

@@ -10,7 +10,7 @@ import {
   TodolistDomainType,
   todolistsReducer,
   updateTodolistTitle,
-} from '../../features/Todolists/todolistsReducer'
+} from '../../features/todolists/todolistsReducer'
 
 let todolistId1: string
 let todolistId2: string

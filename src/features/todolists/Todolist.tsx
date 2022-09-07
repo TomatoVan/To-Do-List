@@ -10,8 +10,8 @@ import EditableSpan from '../../common/components/editableSpan/EditableSpan'
 import RemoveItemBtn from '../../common/components/removeItemBtn/RemoveItemBtn'
 import { TaskStatuses } from '../../common/enums/taskStatuses'
 import { useAppDispatch } from '../../common/hooks/useAppDispatch'
-import Task from '../Tasks/Task'
-import { createTask, fetchTasks } from '../Tasks/tasksReducer'
+import Task from '../tasks/Task'
+import { createTask, fetchTasks } from '../tasks/tasksReducer'
 
 import {
   changeTodolistFilter,

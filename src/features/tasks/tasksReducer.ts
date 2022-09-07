@@ -6,9 +6,9 @@ import { AppRootStateType } from '../../app/store'
 import { ResultCode } from '../../common/enums/resultCode'
 import { TaskStatuses } from '../../common/enums/taskStatuses'
 import { handleAppError, handleNetworkError } from '../../common/utils/error-utils'
-import { logout } from '../Login/authReducer'
-import { TasksStateType } from '../Todolists/TodolistsList'
-import { createTodolist, deleteTodolist, setTodolists } from '../Todolists/todolistsReducer'
+import { logout } from '../login/authReducer'
+import { TasksStateType } from '../todolists/TodolistsList'
+import { createTodolist, deleteTodolist, setTodolists } from '../todolists/todolistsReducer'
 
 // initial state
 const initialState: TasksStateType = {

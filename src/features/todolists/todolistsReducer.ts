@@ -4,7 +4,7 @@ import { todolistsAPI, TodolistType } from '../../api/todolistsAPI'
 import { RequestStatusType, setAppStatus } from '../../app/appReducer'
 import { ResultCode } from '../../common/enums/resultCode'
 import { handleAppError, handleNetworkError } from '../../common/utils/error-utils'
-import { logout } from '../Login/authReducer'
+import { logout } from '../login/authReducer'
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
