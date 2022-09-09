@@ -1,6 +1,7 @@
 ## Project Name & Pitch
 
 #### To-Do List
+<a href="https://snyk.io/test/github/{TomatoVan}/{To-Do-List}">[![Known Vulnerabilities](https://snyk.io/test/github/{TomatoVan}/{To-Do-List}/badge.svg)](https://snyk.io/test/github/{usernamTomatoVane}/{To-Do-List})</a>
 
 An application used to organizing work and life, making lists/tasks with progress monitoring. Built with <b>React</b>, <b>Redux (Toolkit)</b>, <b>TypeScript</b>, <b>CSS Modules</b> and more.
 
